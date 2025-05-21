@@ -3,7 +3,22 @@
 */
 
 article a {
-  text-decoration: dashed;
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+article a:hover {
+  color: #005fa3;
+  border-bottom: 1px solid #005fa3;
+  text-decoration: none;
+}
+
+article a:focus {
+  outline: 2px dashed #0077cc;
+  outline-offset: 2px;
 }
 
 .post-date {
