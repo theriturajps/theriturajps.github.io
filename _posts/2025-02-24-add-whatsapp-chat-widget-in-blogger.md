@@ -99,7 +99,7 @@ svg{width: 22px;height: 22px;vertical-align: middle;fill: var(--warna-icon)}
 </div>
 ```
 
-<p class="note wr">Change the `+911234567890` with the number and text `Hello,%20How%20can%20i%20help%20you` in above code with your own wishes.</p>
+> Change the `+911234567890` with the number and text `Hello,%20How%20can%20i%20help%20you` in above code with your own wishes.
 
 **Step 5 :-** Save the changes by clicking on this 💾 icon.
 
