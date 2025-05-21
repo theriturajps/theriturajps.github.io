@@ -4,24 +4,24 @@ layout: default
 
 {% for post in paginator.posts %}
   <div class="posts-container">
-    {% if post.image %}
-      <div class="thumbnail-container">
-        <a href="{{ site.github.url }}{{ post.url }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
+    <div class="compact-card">
+      {% if post.image %}
+        <div class="thumbnail-container">
+          <a href="{{ site.github.url }}{{ post.url }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
+        </div>
+      {% endif %}
+      <div class="post-content">
+        <h3 class="post-title">
+          <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
+        </h3>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }}
+        </div>
+        <div class="post-excerpt">
+          {{ post.content | strip_html | truncate: 100 }}
+          <a href="{{ site.github.url }}{{ post.url }}" class="read-more">Read more</a>
+        </div>
       </div>
-    {% endif %}
-    <div class="post-content">
-      <h2 class="post-title">
-        <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
-      </h2>
-      <div class="post-meta">
-        <span class="post-date">
-          <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
-        </span>
-      </div>
-      <div class="post-excerpt">
-        {{ post.content | strip_html | truncate: 175 }}
-      </div>
-      <a href="{{ site.github.url }}{{ post.url }}" class="read-more">Read more</a>
     </div>
   </div>
 {% endfor %}
