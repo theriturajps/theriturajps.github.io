@@ -6,6 +6,13 @@ layout: default
   {{ page.title }}
 </h1>
 
+<!-- Debug section -->
+{% if site.posts.size == 0 %}
+<div style="background-color: #ffeeee; padding: 10px; margin-bottom: 20px; border: 1px solid #ffaaaa;">
+  <p><strong>Debug:</strong> No posts found. Check your post files and their location.</p>
+</div>
+{% endif %}
+
 <ul class="posts-container">
   {% for post in site.posts %}
     {% unless post.next %}
