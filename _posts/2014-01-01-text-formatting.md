@@ -5,7 +5,6 @@ author: "Ritu Raj Pratap Singh"
 categories: journal
 tags: [documentation]
 image: cards.jpg
-permalink: /post/text-formatting
 ---
 
 # Markdown Support
