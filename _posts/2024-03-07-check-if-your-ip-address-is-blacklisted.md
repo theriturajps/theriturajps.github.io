@@ -4,7 +4,7 @@ title: "How to Check if Your IP Address Is Blacklisted: A Step-by-Step Guide"
 summary: "Learn how to check if your IP address is blacklisted. Follow our expert guide to ensure your emails and website stay accessible."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
-tags: [CSS, Tailwind]
+tags: [IP]
 ---
 
 If your emails are bouncing or your website isn’t loading for users, your IP address might be blacklisted. Blacklisting occurs when your IP is flagged for suspicious activity, like sending spam or hosting malware. In this guide, **written by a cybersecurity expert with 10+ years of experience**, you’ll learn how to check if your IP is blacklisted and fix the issue quickly.
