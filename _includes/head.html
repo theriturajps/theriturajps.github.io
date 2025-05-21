@@ -1,13 +1,8 @@
 <head>
-  <title>
-    {% if page.title == "Home" %}
-      {{ site.title }} | {{ site.tagline }}
-    {% else %}
-      {{ page.title }} | {{ site.title }}
-    {% endif %}
-  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
+  <!-- Use Jekyll SEO plugin -->
+  {% seo %}
   <link rel="stylesheet" href="{{ site.github.url }}/assets/css/main.css">
   <link rel="stylesheet" href="{{ site.github.url }}/assets/css/syntax.css">
   <!-- Use Atom -->
@@ -29,6 +24,4 @@
   </script>
   <!-- Google Analytics -->
   {% include google-analytics.html %}
-  <!-- Use Jekyll SEO plugin -->
-  {% seo %}
 </head>
