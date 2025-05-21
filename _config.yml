@@ -16,8 +16,17 @@ paginate:            8
 # Build settings
 markdown:            kramdown
 highlighter:         rouge
-permalink:           /:title
+permalink:           /post/:title
 plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
+
+# Custom permalink structures
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      permalink: /page/:basename
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'riturajps'
