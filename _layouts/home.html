@@ -2,39 +2,46 @@
 layout: default
 ---
 
-<!-- Search Form -->
+<!-- Search Bar -->
 <div class="search-container">
   <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
-  <button id="search-button" aria-label="Submit search">Search</button>
-  <div id="search-results" class="search-results"></div>
+  <button id="search-clear" aria-label="Clear search">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </button>
 </div>
 
-<!-- Posts Container -->
-{% for post in paginator.posts %}
-<div class="posts-container">
-  <div class="compact-card">
-    {% if post.image %}
-    <div class="thumbnail-container">
-      <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img
-          src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
-    </div>
-    {% endif %}
-    <div class="post-content">
-      <h3 class="post-title">
-        <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
-      </h3>
-      <div class="post-meta">
-        <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o"
-          aria-hidden="true"></i> {% include read-time.html %}
+<div id="results-container">
+  <!-- Search results will appear here -->
+</div>
+
+<!-- Original Posts Content -->
+<div id="posts-wrapper">
+  {% for post in paginator.posts %}
+  <div class="posts-container">
+    <div class="compact-card">
+      {% if post.image %}
+      <div class="thumbnail-container">
+        <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img
+            src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
       </div>
-      <div class="post-excerpt">
-        {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}"
-          aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+      {% endif %}
+      <div class="post-content">
+        <h3 class="post-title">
+          <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+        </h3>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o"
+            aria-hidden="true"></i> {% include read-time.html %}
+        </div>
+        <div class="post-excerpt">
+          {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}"
+            aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+        </div>
       </div>
     </div>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
 
 <!-- Pagination links -->
 <div class="pagination">
@@ -52,143 +59,134 @@ layout: default
   {% endif %}
 </div>
 
-<!-- Lunr.js Search Script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+<!-- Search JavaScript -->
 <script>
-  // Create search index
-  var searchIndex = null;
-  var searchData = null;
+  document.addEventListener('DOMContentLoaded', function () {
+    // Store all posts data for search
+    const posts = [];
 
-  // Fetch search data
-  fetch('{{ site.baseurl }}/search.json')
-    .then(response => response.json())
-    .then(data => {
-      searchData = data;
-      searchIndex = lunr(function () {
-        this.ref('id');
-        this.field('title', { boost: 10 });
-        this.field('content');
-        this.field('categories');
-        this.field('tags');
+    // Get all post containers
+    const postContainers = document.querySelectorAll('.posts-container');
 
-        data.forEach(function (doc, index) {
-          doc.id = index;
-          this.add(doc);
-        }, this);
-      });
+    // Extract post data and store in the posts array
+    postContainers.forEach(function (container) {
+      const titleElement = container.querySelector('.post-title a');
+      const excerptElement = container.querySelector('.post-excerpt');
+
+      if (titleElement && excerptElement) {
+        posts.push({
+          title: titleElement.innerText,
+          excerpt: excerptElement.innerText,
+          element: container
+        });
+      }
     });
 
-  // Search function
-  document.getElementById('search-button').addEventListener('click', performSearch);
-  document.getElementById('search-input').addEventListener('keyup', function (event) {
-    if (event.key === 'Enter') {
-      performSearch();
-    }
-  });
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('results-container');
+    const postsWrapper = document.getElementById('posts-wrapper');
+    const clearButton = document.getElementById('search-clear');
 
-  function performSearch() {
-    const query = document.getElementById('search-input').value.trim();
-    const resultsContainer = document.getElementById('search-results');
+    // Hide clear button initially
+    clearButton.style.display = 'none';
 
-    if (!query) {
+    // Search function
+    function performSearch() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+
+      // Show/hide clear button based on search term
+      clearButton.style.display = searchTerm ? 'block' : 'none';
+
+      // If search term is empty, show original posts and hide results
+      if (!searchTerm) {
+        postsWrapper.style.display = 'block';
+        resultsContainer.style.display = 'none';
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
+      // Hide original posts, show results container
+      postsWrapper.style.display = 'none';
+      resultsContainer.style.display = 'block';
       resultsContainer.innerHTML = '';
-      return;
+
+      // Filter posts based on search term
+      const filteredPosts = posts.filter(post =>
+        post.title.toLowerCase().includes(searchTerm) ||
+        post.excerpt.toLowerCase().includes(searchTerm)
+      );
+
+      // Display results
+      if (filteredPosts.length > 0) {
+        filteredPosts.forEach(post => {
+          resultsContainer.appendChild(post.element.cloneNode(true));
+        });
+      } else {
+        resultsContainer.innerHTML = '<div class="no-results">No posts found matching your search.</div>';
+      }
     }
 
-    if (!searchIndex) {
-      resultsContainer.innerHTML = '<p>Search index not loaded yet. Please try again.</p>';
-      return;
+    // Clear search function
+    function clearSearch() {
+      searchInput.value = '';
+      clearButton.style.display = 'none';
+      postsWrapper.style.display = 'block';
+      resultsContainer.style.display = 'none';
+      resultsContainer.innerHTML = '';
     }
 
-    const results = searchIndex.search(query);
-    resultsContainer.innerHTML = '';
-
-    if (results.length === 0) {
-      resultsContainer.innerHTML = '<p>No results found.</p>';
-      return;
-    }
-
-    const resultsList = document.createElement('ul');
-    results.forEach(result => {
-      const item = searchData[result.ref];
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <a href="{{ site.baseurl }}${item.url}">${item.title}</a>
-        <p>${item.content.substring(0, 120)}...</p>
-      `;
-      resultsList.appendChild(listItem);
-    });
-
-    resultsContainer.appendChild(resultsList);
-  }
+    // Event listeners
+    searchInput.addEventListener('input', performSearch);
+    clearButton.addEventListener('click', clearSearch);
+  });
 </script>
 
+<!-- Add CSS for search styling -->
 <style>
   .search-container {
-    margin-bottom: 2rem;
     position: relative;
+    margin-bottom: 2rem;
+    width: 100%;
   }
 
   #search-input {
-    padding: 0.5rem;
-    width: 70%;
-    max-width: 400px;
+    width: 100%;
+    padding: 12px 40px 12px 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
   }
 
-  #search-button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
+  #search-input:focus {
+    outline: none;
+    border-color: #555;
+  }
+
+  #search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    margin-left: 0.5rem;
+    color: #999;
+    padding: 5px;
   }
 
-  #search-button:hover {
-    background-color: #0056b3;
+  #search-clear:hover {
+    color: #333;
   }
 
-  .search-results {
-    margin-top: 1rem;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    padding: 1rem;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  #results-container {
+    display: none;
   }
 
-  .search-results ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .search-results li {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
-  }
-
-  .search-results li:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-
-  .search-results a {
-    font-weight: bold;
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  .search-results a:hover {
-    text-decoration: underline;
-  }
-
-  .search-results p {
-    margin: 0.5rem 0 0;
+  .no-results {
+    text-align: center;
+    padding: 2rem;
     color: #666;
+    font-style: italic;
   }
 </style>
