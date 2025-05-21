@@ -4,14 +4,14 @@
 
 body {
   font-family: $serif-font-family;
-  font-size: 18px;
+  font-size: 16px; // Changed from 18px to 16px
   color: $body-color;
   line-height: 1.75rem;
 }
 
 @media (max-width: $elements-responsive-width) {
   body {
-    font-size: 14px;
+    font-size: 14px;  // Keep mobile size as is
     line-height: 1.5rem;
   }
   body h1 {
@@ -19,8 +19,8 @@ body {
   }
 }
 
-h1{
-  font-size: 2rem;
+h1 {
+  font-size: 1.8rem; // Reduced from 2rem to 1.8rem
 }
 
 h1 a {

@@ -2,6 +2,27 @@
   Post
 */
 
+article {
+  font-size: 1rem;  // Ensures article text uses the base size
+  
+  p, li, td {
+    font-size: 1rem;  // Explicitly set these elements
+    line-height: 1.6; // Better line spacing for readability
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+}
+
 article a {
   color: #0077cc;
   text-decoration: none;
