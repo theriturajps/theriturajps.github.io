@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About Ritu Raj
-permalink: /about
+permalink: /page/about
 ---
 
 Pursuing MCA after B.Sc. IT (2025) with expertise in backend and web development. Skilled in creating REST and CRUD APIs using JavaScript, Python, Node.js, and Express. 
