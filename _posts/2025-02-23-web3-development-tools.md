@@ -12,23 +12,6 @@ However, it might be really difficult to find excellent web3 dev tools to study 
 
 To help you create amazing projects, I have compiled a collection of web3 developer tools.
 
-## Table of Contents
-  - [Essential Web3 Development Tools Guide](#essential-web3-development-tools-guide)
-  - [Composio Crypto-Kit](#composio-crypto-kit)
-  - [Hardhat | The Most Well-Known Ethereum Innovation](#hardhat--the-most-well-known-ethereum-innovation)
-  - [Anchor | The Standard Framework for Solana Development](#anchor--the-standard-framework-for-solana-development)
-  - [Foundry | Lightning-Quick Ethereum Testing Structure](#foundry--lightning-quick-ethereum-testing-structure)
-  - [Modern Ethereum Library | Ethers.js](#modern-ethereum-library--ethersjs)
-  - [Official Solana JavaScript SDK | Solana Web3.js](#official-solana-javascript-sdk--solana-web3js)
-  - [Battle-Tested Smart Contract Library | OpenZeppelin](#battle-tested-smart-contract-library--openzeppelin)
-  - [Browser-Based Solidity IDE | Remix IDE](#browser-based-solidity-ide--remix-ide)
-  - [Solana Playground | Solana IDE Web-Based](#solana-playground--solana-ide-web-based)
-  - [Personal Ethereum Blockchain | Ganache](#personal-ethereum-blockchain--ganache)
-  - [Alchemy | Web3 Infrastructure of Enterprise Grade](#alchemy--web3-infrastructure-of-enterprise-grade)
-  - [High-Performance Helius RPC in Solana](#high-performance-helius-rpc-in-solana)
-  - [The Blockchain Data Indexing Protocol | The Graph](#the-blockchain-data-indexing-protocol--the-graph)
-  - [Tenderly | Platform for Monitoring Smart Contracts](#tenderly--platform-for-monitoring-smart-contracts)
-
 ## [Composio Crypto-Kit](https://composio.dev/ai-crypto-kit/)
 
 Both AI and cryptocurrency are popular. Cryptocurrency and AI agents can work pretty well together. AI agents are able to efficiently communicate with decentralised apps, automate the management of cryptocurrency portfolios, and carry out complex DeFi techniques like yield optimisation and cross-chain arbitrage.
