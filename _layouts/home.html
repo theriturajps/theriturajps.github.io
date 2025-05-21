@@ -2,28 +2,41 @@
 layout: default
 ---
 
-{% for post in paginator.posts %}
-  <div class="posts-container">
-    <div class="compact-card">
-      {% if post.image %}
-        <div class="thumbnail-container">
-          <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
-        </div>
-      {% endif %}
-      <div class="post-content">
-        <h3 class="post-title">
-          <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
-        </h3>
-        <div class="post-meta">
-          <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
-        </div>
-        <div class="post-excerpt">
-          {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+<!-- Search functionality -->
+<div class="search-container">
+  <div class="search-wrapper">
+    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+    <button id="search-button" aria-label="Search">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+  <div id="results-container" class="search-results"></div>
+</div>
+
+<div id="posts-list">
+  {% for post in paginator.posts %}
+    <div class="posts-container">
+      <div class="compact-card">
+        {% if post.image %}
+          <div class="thumbnail-container">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
+          </div>
+        {% endif %}
+        <div class="post-content">
+          <h3 class="post-title">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+          </h3>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+          </div>
+          <div class="post-excerpt">
+            {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-{% endfor %}
+  {% endfor %}
+</div>
 
 <!-- Pagination links -->
 <div class="pagination">
@@ -38,3 +51,137 @@ layout: default
     <span class="pagination-button">{{ site.data.settings.pagination.next_page }}</span>
   {% endif %}
 </div>
+
+<!-- Add Simple-Jekyll-Search script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.10.0/simple-jekyll-search.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sjs = SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/search.json',
+    searchResultTemplate: '<div class="search-item"><a href="{url}" title="{title}">{title}</a><span class="search-item-date">{date}</span></div>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false
+  });
+
+  // Show/hide results based on search input
+  var searchInput = document.getElementById('search-input');
+  var resultsContainer = document.getElementById('results-container');
+  var postsContainer = document.getElementById('posts-list');
+
+  searchInput.addEventListener('input', function() {
+    if (this.value.length > 0) {
+      resultsContainer.style.display = 'block';
+    } else {
+      resultsContainer.style.display = 'none';
+    }
+  });
+
+  // Close search results when clicking outside
+  document.addEventListener('click', function(e) {
+    if (e.target !== searchInput && !resultsContainer.contains(e.target)) {
+      resultsContainer.style.display = 'none';
+    }
+  });
+
+  // Search button click handler
+  document.getElementById('search-button').addEventListener('click', function() {
+    if (searchInput.value.length > 0) {
+      resultsContainer.style.display = 'block';
+    }
+  });
+});
+</script>
+
+<style>
+/* Search styles */
+.search-container {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+
+.search-wrapper {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+#search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
+#search-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#search-button:hover {
+  background-color: #333;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-item:hover {
+  background-color: #f9f9f9;
+}
+
+.search-item a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  flex: 1;
+}
+
+.search-item-date {
+  color: #888;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .search-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-item-date {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+</style>
