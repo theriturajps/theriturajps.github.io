@@ -53,45 +53,56 @@ layout: default
 </div>
 
 <!-- Add Simple-Jekyll-Search script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.10.0/simple-jekyll-search.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var sjs = SimpleJekyllSearch({
-    searchInput: document.getElementById('search-input'),
-    resultsContainer: document.getElementById('results-container'),
-    json: '/search.json',
-    searchResultTemplate: '<div class="search-item"><a href="{url}" title="{title}">{title}</a><span class="search-item-date">{date}</span></div>',
-    noResultsText: 'No results found',
-    limit: 10,
-    fuzzy: false
-  });
+// Wait for the script to load completely
+window.addEventListener('load', function() {
+  // Make sure the DOM is fully loaded and the SimpleJekyllSearch is available
+  setTimeout(function() {
+    try {
+      // Initialize the search
+      var sjs = SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '{{ site.baseurl }}/search.json',
+        searchResultTemplate: '<div class="search-item"><a href="{url}" title="{title}">{title}</a><span class="search-item-date">{date}</span></div>',
+        noResultsText: 'No results found',
+        limit: 10,
+        fuzzy: false
+      });
 
-  // Show/hide results based on search input
-  var searchInput = document.getElementById('search-input');
-  var resultsContainer = document.getElementById('results-container');
-  var postsContainer = document.getElementById('posts-list');
+      console.log('Search initialized successfully');
+      
+      // Show/hide results based on search input
+      var searchInput = document.getElementById('search-input');
+      var resultsContainer = document.getElementById('results-container');
+      var postsContainer = document.getElementById('posts-list');
 
-  searchInput.addEventListener('input', function() {
-    if (this.value.length > 0) {
-      resultsContainer.style.display = 'block';
-    } else {
-      resultsContainer.style.display = 'none';
+      searchInput.addEventListener('input', function() {
+        if (this.value.length > 0) {
+          resultsContainer.style.display = 'block';
+        } else {
+          resultsContainer.style.display = 'none';
+        }
+      });
+
+      // Close search results when clicking outside
+      document.addEventListener('click', function(e) {
+        if (e.target !== searchInput && !resultsContainer.contains(e.target)) {
+          resultsContainer.style.display = 'none';
+        }
+      });
+
+      // Search button click handler
+      document.getElementById('search-button').addEventListener('click', function() {
+        if (searchInput.value.length > 0) {
+          resultsContainer.style.display = 'block';
+        }
+      });
+    } catch (e) {
+      console.error('Search initialization error:', e);
     }
-  });
-
-  // Close search results when clicking outside
-  document.addEventListener('click', function(e) {
-    if (e.target !== searchInput && !resultsContainer.contains(e.target)) {
-      resultsContainer.style.display = 'none';
-    }
-  });
-
-  // Search button click handler
-  document.getElementById('search-button').addEventListener('click', function() {
-    if (searchInput.value.length > 0) {
-      resultsContainer.style.display = 'block';
-    }
-  });
+  }, 500); // Small delay to ensure everything is loaded
 });
 </script>
 
