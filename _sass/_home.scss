@@ -10,56 +10,56 @@
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  }
+.posts-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
 
-  .post-content {
-    padding: 1.5rem;
-  }
+.post-content {
+  padding: 1.5rem;
+}
 
-  .post-title {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: 1.5rem;
+.post-title {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
 
-    a {
-      text-decoration: none;
-      color: $dark-gray-color;
+.post-title a {
+  text-decoration: none;
+  color: $dark-gray-color;
+}
 
-      &:hover {
-        color: $link-color;
-      }
-    }
-  }
+.post-title a:hover {
+  color: $link-color;
+}
 
-  .post-meta {
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-    color: $light-gray-color;
-    font-family: $sans-serif-font-family;
-  }
+.post-meta {
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: $light-gray-color;
+  font-family: $sans-serif-font-family;
+}
 
-  .post-excerpt {
-    margin-bottom: 1rem;
-    color: $medium-gray-color;
-    line-height: 1.6;
-  }
+.post-excerpt {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
 
-  .read-more {
-    display: inline-block;
-    font-weight: 600;
-    color: $link-color;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
+.read-more {
+  display: inline-block;
+  font-weight: 600;
+  color: $link-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
 
-    &:hover {
-      color: darken($link-color, 15%);
-    }
-  }
+.read-more:hover {
+  color: $link-color;
+  opacity: 0.8;
 }
 
 /*
@@ -70,17 +70,17 @@
   max-width: 100%;
   overflow: hidden;
   margin-bottom: 0;
+}
 
-  img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.thumbnail-container img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
 
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
+.thumbnail-container img:hover {
+  transform: scale(1.05);
 }
 
 /*

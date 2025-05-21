@@ -3,7 +3,7 @@ layout: default
 ---
 
 {% for post in paginator.posts %}
-  <div class="posts-container post-card">
+  <div class="posts-container">
     {% if post.image %}
       <div class="thumbnail-container">
         <a href="{{ site.github.url }}{{ post.url }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
@@ -25,6 +25,7 @@ layout: default
     </div>
   </div>
 {% endfor %}
+
 <!-- Pagination links -->
 <div class="pagination">
   {% if paginator.next_page %}
