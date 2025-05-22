@@ -48,7 +48,7 @@ Now comes the fun part—adding the code to your Blogger site. There are two mai
 **Step 4:** Now search the code `]]></b:skin>` and paste the following **CSS** code just above to it.
 
 ```css
-/* Cookies Consent Notice by exonoob.in*/
+/* Cookies Consent Notice by @riturajps*/
 .ckWrap{position:fixed;right:0;left:0;bottom:-600px;z-index:50;width:100%;padding:20px;background:rgba(255, 255, 255, 0.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:30px 30px 0 0;box-shadow:0 -10px 25px -5px rgba(0,0,0,.1);align-items:center;justify-content:center;text-align:center;animation:ckUp 2.5s forwards;animation-delay:1s;-webkit-animation:ckUp 2.5s forwards;-webkit-animation-delay:1s}
 .ckWrap.acptd{animation:ckDn 2.5s backwards;animation-delay:.3s;-webkit-animation:ckDn 2.5s backwards;-webkit-animation-delay:.3s}
 .ckWrap.hidden{display:none}
@@ -84,7 +84,7 @@ Now comes the fun part—adding the code to your Blogger site. There are two mai
 **Step 6:** At last add the below JavaScript Code just above to `</body>` or `&lt;/body&gt;` tag.
 
 ```javascript
-<script>/*<<![CDATA[*/ /* Cookies Consent Notice Script by exonoob.in */ var ckBox=document.querySelector("#ckBox"),ckAcptBtn=document.querySelector("#ckAcptBtn"),ckErrMes="Cookie can't be set! Please unblock this site from the cookie setting of your browser.";if(null!=ckBox){ckAcptBtn.onclick=()=>{document.cookie="CookieConsentByRituRaj=Accepted; max-age=2592000; path=/",document.cookie?ckBox.classList.add("acptd"):alert(ckErrMes)};let e=document.cookie.indexOf("CookieConsentByRituRaj=Accepted");-1!=e?ckBox.classList.add("hidden"):ckBox.classList.remove("hidden")} /*]]>>*/</script>
+<script>/*<<![CDATA[*/ /* Cookies Consent Notice Script by @riturajps */ var ckBox=document.querySelector("#ckBox"),ckAcptBtn=document.querySelector("#ckAcptBtn"),ckErrMes="Cookie can't be set! Please unblock this site from the cookie setting of your browser.";if(null!=ckBox){ckAcptBtn.onclick=()=>{document.cookie="CookieConsentByRituRaj=Accepted; max-age=2592000; path=/",document.cookie?ckBox.classList.add("acptd"):alert(ckErrMes)};let e=document.cookie.indexOf("CookieConsentByRituRaj=Accepted");-1!=e?ckBox.classList.add("hidden"):ckBox.classList.remove("hidden")} /*]]>>*/</script>
 ```
 
 > Change the marked no. in above code as per your need (in seconds). For eg. 5184000 = 60 days
@@ -102,7 +102,7 @@ Now comes the fun part—adding the code to your Blogger site. There are two mai
 **Step 4:** Paste the code into the content box.
 
 ```html
-<!--[ Cookies Consent Widget by exonoob.in ]-->
+<!--[ Cookies Consent Widget by @riturajps ]-->
 <div class='ckWrap hidden' id='ckBox'>
   <div class='ckCont'>
     <!--[ Cookies Icon ]-->

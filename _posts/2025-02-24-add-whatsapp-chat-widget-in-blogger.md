@@ -36,7 +36,7 @@ Putting the WhatsApp Chat Widget on your Blogger site is easy and will only take
 **Step 3 :-** Copy the below **CSS** code and paste it into the CSS section of your theme.
 
 ```css
-/* WhatsApp Chat Widget by exonoob.in */
+/* WhatsApp Chat Widget by @riturajps */
 :root {
 --warna-background: #4dc247; /* Change header and background color */
 --warna-bg-chat: #f0f5fb;
