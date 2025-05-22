@@ -29,11 +29,11 @@ tags: [APIs, Telegram]
 ## Step 2: Find Your Telegram Chat ID
 
 1. Start a chat with your new bot and send a `/start` message.
-2. Visit this URL in your browser (replace `YOUR_TOKEN`) with the API token received in Step 1:
+2. Visit this URL in your browser (replace `YOUR_TOKEN`) with the API token received in **Step 1**
 
-```
-https://api.telegram.org/botYOUR_TOKEN/getUpdates
-```
+  ```
+  https://api.telegram.org/botYOUR_TOKEN/getUpdates
+  ```
 
 3. Look for the `"chat":{"id":-123456789}` value in the JSON response. This is your Chat ID.
 
@@ -117,23 +117,23 @@ Exposing your bot token in client-side code lets anyone spam your bot. Here’s 
 1. Create a Netlify account and set up a site.
 2. Create a `netlify/functions/send-telegram.js` file:
 
-```javascript
-exports.handler = async (event) => {
-  const { name, email, message } = JSON.parse(event.body);
-  const text = `New message from ${name} (${email}): ${message}`;
-  
-  await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: process.env.CHAT_ID,
-      text: text
-    })
-  });
-  
-  return { statusCode: 200, body: 'OK' };
-};
-```
+  ```javascript
+  exports.handler = async (event) => {
+    const { name, email, message } = JSON.parse(event.body);
+    const text = `New message from ${name} (${email}): ${message}`;
+    
+    await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: process.env.CHAT_ID,
+        text: text
+      })
+    });
+    
+    return { statusCode: 200, body: 'OK' };
+  };
+  ```
 3. Add `BOT_TOKEN` and `CHAT_ID` to Netlify’s environment variables.
 
 ### Option B: Add Google reCAPTCHA
@@ -141,9 +141,9 @@ exports.handler = async (event) => {
 1. Get keys from [Google reCAPTCHA](https://www.google.com/recaptcha).
 2. Add to your HTML:
 
-```html
-<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-```
+  ```html
+  <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+  ```
 
 3. Validate the CAPTCHA in your JavaScript before sending the message.
 
