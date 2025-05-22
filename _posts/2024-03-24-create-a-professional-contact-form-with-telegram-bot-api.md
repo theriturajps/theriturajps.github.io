@@ -153,9 +153,9 @@ Exposing your bot token in client-side code lets anyone spam your bot. Here’s 
 1. Get keys from [Google reCAPTCHA](https://www.google.com/recaptcha).
 2. Add to your HTML:
 
-  ```html
-  <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-  ```
+    ```html
+    <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+    ```
 3. Validate the CAPTCHA in your JavaScript before sending the message.
 
 ## Step 6: Test and Debug
