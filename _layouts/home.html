@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const postsWrapper = document.getElementById('posts-wrapper');
   const clearButton = document.getElementById('search-clear');
   
+  // Update placeholder with post count
+  const postCount = postsData.length;
+  searchInput.placeholder = `Search among ${postCount} posts...`;
+  
   // Hide clear button initially
   clearButton.style.display = 'none';
   
