@@ -12,10 +12,9 @@
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  box-shadow: 0 1px 6px var(--card-shadow);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-color: var(--card-bg);
 }
 
 .compact-card:hover {
@@ -36,7 +35,7 @@
 
 .post-title a {
   text-decoration: none;
-  color: var(--header-color);
+  color: $dark-gray-color;
 }
 
 .post-title a:hover {
