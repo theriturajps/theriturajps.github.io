@@ -12,12 +12,14 @@ tags: [APIs, Telegram]
 ![Telegram Bot API Contact Form](https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
 
 ## Why Telegram Bots Are Perfect for Contact Forms
+
 - **Free forever**: No Heroku, Firebase, or AWS bills.
 - **Zero maintenance**: Telegram handles uptime and security.
 - **Mobile-friendly**: Receive messages instantly on your phone.
 - **SEO-friendly**: Lightweight code improves page load speed.
 
 ## Step 1: Set Up Your Telegram Bot
+
 1. Open Telegram and search for [@BotFather](https://t.me/BotFather) (Telegram’s official bot creator).
 2. Type `/newbot` and follow the prompts to name your bot (e.g., `MyPortfolioBot`).
 3. Copy the **API token** provided (looks like `123456:ABCdef1234GHIklmNOPqr56`).
@@ -25,14 +27,18 @@ tags: [APIs, Telegram]
 🔒 **Pro Tip**: This token is like a password. For testing, we’ll use it temporarily, but **never expose it publicly on live websites**. Later, I’ll show you how to secure it.
 
 ## Step 2: Find Your Telegram Chat ID
+
 1. Start a chat with your new bot and send a `/start` message.
 2. Visit this URL in your browser (replace `YOUR_TOKEN`) with the API token received in Step 1:
+
 ```
 https://api.telegram.org/botYOUR_TOKEN/getUpdates
 ```
+
 3. Look for the `"chat":{"id":-123456789}` value in the JSON response. This is your Chat ID.
 
 ## Step 3: Design the HTML Form (Beginner-Friendly)
+
 ```html
 <!-- Simple, clean form design -->
 <form id="telegramForm" class="contact-form">
@@ -58,6 +64,7 @@ https://api.telegram.org/botYOUR_TOKEN/getUpdates
 ```
 
 ## Step 4: Add JavaScript to Send Messages to Telegram
+
 ```javascript
 const form = document.getElementById('telegramForm');
 const statusEl = document.getElementById('formStatus');
