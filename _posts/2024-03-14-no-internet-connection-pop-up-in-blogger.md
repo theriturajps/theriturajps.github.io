@@ -19,7 +19,7 @@ Here, I shall be recommending that you add No Internet Connection Pop-up Widget 
 
 ### Step 1:- Go to Blogger Dashboard
 
-Log in to your [Blogger Dashboard](https://www.blogger.com/?ref=exonoob.in).
+Log in to your [Blogger Dashboard](https://www.blogger.com/).
 
 ### Step 2:- Open Theme Editor Page
 
