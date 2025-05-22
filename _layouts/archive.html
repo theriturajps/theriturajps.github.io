@@ -12,7 +12,7 @@ layout: default
     {% assign posts_count = year_group.items | size %}
     
     <h3 class="year-header">
-      {{ year }} <span class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</span>
+      {{ year }} <small class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</small>
     </h3>
     
     {% for post in year_group.items %}
