@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Add a UI Cookies Consent Widget in Your Blogger Site 2025?"
-summary: "Learn how to add a cookies consent widget into Blogger site. Ensure legal compliance and build user trust with this step-by-step guide"
+description: "Learn how to add a cookies consent widget into Blogger site. Ensure legal compliance and build user trust with this step-by-step guide"
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Blogger, Guide]

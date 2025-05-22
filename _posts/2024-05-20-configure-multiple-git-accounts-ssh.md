@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Configure Multiple Git Accounts with SSH: A Complete Guide for Developers"
-summary: "Learn how to securely manage multiple Git accounts (GitHub, GitLab, Bitbucket) on your local machine using SSH keys."
+description: "Learn how to securely manage multiple Git accounts (GitHub, GitLab, Bitbucket) on your local machine using SSH keys."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Github, SSH]

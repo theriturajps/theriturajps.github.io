@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Backend-as-a-Service (BaaS): A Complete Guide for Developers"
-summary: "Discover how BaaS simplifies app development, reduces costs, and scales efficiently. Learn top providers, benefits, and use cases here"
+description: "Discover how BaaS simplifies app development, reduces costs, and scales efficiently. Learn top providers, benefits, and use cases here"
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Guide, BaaS]

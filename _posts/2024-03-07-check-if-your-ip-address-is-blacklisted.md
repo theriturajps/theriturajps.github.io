@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Check if Your IP Address Is Blacklisted: A Step-by-Step Guide"
-summary: "Learn how to check if your IP address is blacklisted. Follow our expert guide to ensure your emails and website stay accessible."
+description: "Learn how to check if your IP address is blacklisted. Follow our expert guide to ensure your emails and website stay accessible."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [IP]

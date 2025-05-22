@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build Responsive Success, Error, Warning, and Info Alerts Using Tailwind CSS."
-summary: "Master Tailwind CSS alerts: Create responsive success, error, warning & info notifications. Complete tutorial with live code examples & best practices"
+description: "Master Tailwind CSS alerts: Create responsive success, error, warning & info notifications. Complete tutorial with live code examples & best practices"
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [CSS, Tailwind]

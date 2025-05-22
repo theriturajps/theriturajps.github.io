@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Create a Professional Contact Form with Telegram Bot API (No Node.js Required)"
-summary: "Step-by-step guide to create a secure, serverless Telegram contact form using JavaScript. Perfect step-by-step guide for beginners"
+description: "Step-by-step guide to create a secure, serverless Telegram contact form using JavaScript. Perfect step-by-step guide for beginners"
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [APIs, Telegram]

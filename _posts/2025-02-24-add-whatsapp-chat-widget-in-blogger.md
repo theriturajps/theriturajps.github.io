@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Add WhatsApp Chat Widget in Blogger (Step-by-Step)"
-summary: "Learn how to add a WhatsApp Chat Widget to your Blogger site. Boost engagement, increase conversions, and improve customer support easily."
+description: "Learn how to add a WhatsApp Chat Widget to your Blogger site. Boost engagement, increase conversions, and improve customer support easily."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Blogger, Guide]

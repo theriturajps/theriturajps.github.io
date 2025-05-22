@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build a 24-Hour Expiring URL Shortener with Node.js & MongoDB"
-summary: "Learn to create a secure, self-destructing URL shortener using Node.js, Express, and MongoDB. Step-by-step guide with code examples."
+description: "Learn to create a secure, self-destructing URL shortener using Node.js, Express, and MongoDB. Step-by-step guide with code examples."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Guide, APIs]

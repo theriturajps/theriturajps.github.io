@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build a Professional Morse Code API Using Express.js : Step-by-Step Guide"
-summary: "Learn to create a professional Morse Code API using Express.js. Step-by-step guide covers setup, encoding, testing, and deployment for developers."
+description: "Learn to create a professional Morse Code API using Express.js. Step-by-step guide covers setup, encoding, testing, and deployment for developers."
 author: "Ritu Raj Pratap Singh"
 categories: Guide
 tags: [Guide, APIs]
