@@ -171,7 +171,7 @@ Exposing your bot token in client-side code lets anyone spam your bot. Here’s 
    - Token invalid? Re-generate via @BotFather.
    - No messages? Double-check your Chat ID and API URL.
 
-## FAQs (AdSense Loves These!)
+## FAQs
 
 **Q: Can I customize the Telegram message format?**  
 A: Absolutely! Modify the `message` variable in the JavaScript to include emojis, links, or formatted text.
