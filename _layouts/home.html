@@ -40,89 +40,19 @@ layout: default
   {% endfor %}
 </div>
 
-<!-- Modern Pagination -->
-<nav class="pagination-nav" aria-label="Pagination Navigation">
-  <div class="pagination-container">
-    {% if paginator.previous_page %}
-      <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="pagination-btn pagination-prev" aria-label="Go to previous page">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        <span>Previous</span>
-      </a>
-    {% else %}
-      <span class="pagination-btn pagination-prev pagination-disabled">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        <span>Previous</span>
-      </span>
-    {% endif %}
-
-    <div class="pagination-info">
-      <span class="pagination-current">Page {{ paginator.page }}</span>
-      <span class="pagination-divider">of</span>
-      <span class="pagination-total">{{ paginator.total_pages }}</span>
-    </div>
-
-    {% if paginator.next_page %}
-      <a href="{{ site.github.url }}{{ paginator.next_page_path }}" class="pagination-btn pagination-next" aria-label="Go to next page">
-        <span>Next</span>
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-    {% else %}
-      <span class="pagination-btn pagination-next pagination-disabled">
-        <span>Next</span>
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </span>
-    {% endif %}
-  </div>
-
-  <!-- Optional: Page Numbers (uncomment if you want numbered pagination) -->
-  <!--
-  <div class="pagination-numbers">
-    {% if paginator.total_pages > 1 %}
-      {% assign start_page = paginator.page | minus: 2 %}
-      {% assign end_page = paginator.page | plus: 2 %}
-      
-      {% if start_page < 1 %}
-        {% assign start_page = 1 %}
-        {% assign end_page = 5 %}
-      {% endif %}
-      
-      {% if end_page > paginator.total_pages %}
-        {% assign end_page = paginator.total_pages %}
-        {% assign start_page = paginator.total_pages | minus: 4 %}
-        {% if start_page < 1 %}
-          {% assign start_page = 1 %}
-        {% endif %}
-      {% endif %}
-      
-      {% if start_page > 1 %}
-        <a href="{{ site.baseurl }}/" class="pagination-number">1</a>
-        {% if start_page > 2 %}
-          <span class="pagination-ellipsis">…</span>
-        {% endif %}
-      {% endif %}
-      
-      {% for page in (start_page..end_page) %}
-        {% if page == paginator.page %}
-          <span class="pagination-number pagination-current-number">{{ page }}</span>
-        {% else %}
-          {% if page == 1 %}
-            <a href="{{ site.baseurl }}/" class="pagination-number">{{ page }}</a>
-          {% else %}
-            <a href="{{ site.baseurl }}/page{{ page }}/" class="pagination-number">{{ page }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-      
-      {% if end_page < paginator.total_pages %}
-        {% if end_page < paginator.total_pages | minus: 1 %}
-          <span class="pagination-ellipsis">…</span>
-        {% endif %}
-        <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}/" class="pagination-number">{{ paginator.total_pages }}</a>
-      {% endif %}
-    {% endif %}
-  </div>
-  -->
-</nav>
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a class="pagination-button pagination-active" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">{{ site.data.settings.pagination.next_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.next_page }}</span>
+  {% endif %}
+  {% if paginator.next_page %}
+    <a class="pagination-button pagination-active next" href="{{ site.github.url }}{{ paginator.next_page_path }}">{{ site.data.settings.pagination.previous_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.previous_page }}</span>
+  {% endif %}
+</div>
 
 <!-- Search JavaScript -->
 <script>
@@ -243,8 +173,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Add CSS for search styling -->
 <style>
-  /* Search Styles */
   .search-container {
     position: relative;
     margin-bottom: 2rem;
@@ -303,181 +233,5 @@ document.addEventListener('DOMContentLoaded', function() {
     padding: 2rem;
     color: #666;
     font-style: italic;
-  }
-
-  /* Modern Pagination Styles */
-  .pagination-nav {
-    margin: 3rem 0 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .pagination-container {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: #ffffff;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  .pagination-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    min-width: 100px;
-    justify-content: center;
-  }
-
-  .pagination-btn:not(.pagination-disabled) {
-    color: #374151;
-    background: #f9fafb;
-    border-color: #e5e7eb;
-  }
-
-  .pagination-btn:not(.pagination-disabled):hover {
-    background: #f3f4f6;
-    border-color: #d1d5db;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .pagination-btn.pagination-disabled {
-    color: #9ca3af;
-    background: #f9fafb;
-    border-color: #e5e7eb;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  .pagination-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: #6b7280;
-    background: #f8fafc;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-  }
-
-  .pagination-current {
-    font-weight: 600;
-    color: #1f2937;
-  }
-
-  .pagination-divider {
-    color: #9ca3af;
-  }
-
-  .pagination-total {
-    font-weight: 500;
-    color: #4b5563;
-  }
-
-  /* Optional: Numbered Pagination Styles */
-  .pagination-numbers {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .pagination-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: #6b7280;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    transition: all 0.2s ease;
-  }
-
-  .pagination-number:hover {
-    background: #f3f4f6;
-    border-color: #d1d5db;
-    color: #374151;
-  }
-
-  .pagination-current-number {
-    background: #3b82f6;
-    color: #ffffff;
-    border-color: #3b82f6;
-  }
-
-  .pagination-ellipsis {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: #9ca3af;
-    font-weight: 500;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .pagination-container {
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1.5rem 1rem;
-    }
-
-    .pagination-btn {
-      min-width: 120px;
-    }
-
-    .pagination-info {
-      order: -1;
-    }
-
-    .pagination-numbers {
-      gap: 0.125rem;
-    }
-
-    .pagination-number,
-    .pagination-ellipsis {
-      width: 36px;
-      height: 36px;
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .pagination-nav {
-      margin: 2rem 0 1rem;
-    }
-
-    .pagination-container {
-      padding: 1rem 0.75rem;
-    }
-
-    .pagination-btn span {
-      display: none;
-    }
-
-    .pagination-btn {
-      min-width: 50px;
-      padding: 0.75rem;
-    }
   }
 </style>
