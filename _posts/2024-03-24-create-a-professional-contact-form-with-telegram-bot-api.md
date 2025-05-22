@@ -29,12 +29,11 @@ tags: [APIs, Telegram]
 ## Step 2: Find Your Telegram Chat ID
 
 1. Start a chat with your new bot and send a `/start` message.
-2. Visit this URL in your browser (replace `YOUR_TOKEN`) with the API token received in **Step 1**
+2. Visit this URL in your browser (replace `YOUR_TOKEN`) with the API token:
 
-  ```
-  https://api.telegram.org/botYOUR_TOKEN/getUpdates
-  ```
-
+   ```bash
+   https://api.telegram.org/botYOUR_TOKEN/getUpdates
+   ```
 3. Look for the `"chat":{"id":-123456789}` value in the JSON response. This is your Chat ID.
 
 ## Step 3: Design the HTML Form (Beginner-Friendly)
