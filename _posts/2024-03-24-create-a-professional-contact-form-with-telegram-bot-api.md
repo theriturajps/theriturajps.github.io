@@ -106,8 +106,10 @@ form.addEventListener('submit', async (e) => {
 Exposing your bot token in client-side code lets anyone spam your bot. Here’s how to fix it:
 
 ### Option A: Use Netlify Functions (Free)
+
 1. Create a Netlify account and set up a site.
 2. Create a `netlify/functions/send-telegram.js` file:
+
 ```javascript
 exports.handler = async (event) => {
   const { name, email, message } = JSON.parse(event.body);
@@ -128,14 +130,18 @@ exports.handler = async (event) => {
 3. Add `BOT_TOKEN` and `CHAT_ID` to Netlify’s environment variables.
 
 ### Option B: Add Google reCAPTCHA
+
 1. Get keys from [Google reCAPTCHA](https://www.google.com/recaptcha).
 2. Add to your HTML:
+
 ```html
 <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
 ```
+
 3. Validate the CAPTCHA in your JavaScript before sending the message.
 
 ## Step 6: Test and Debug
+
 1. **Test locally**: Open your HTML file in a browser and submit a message.
 2. **Check Telegram**: You’ll receive the message in seconds.
 3. **Common issues**:
@@ -143,6 +149,7 @@ exports.handler = async (event) => {
    - No messages? Double-check your Chat ID and API URL.
 
 ## FAQs (AdSense Loves These!)
+
 **Q: Can I customize the Telegram message format?**  
 A: Absolutely! Modify the `message` variable in the JavaScript to include emojis, links, or formatted text.
 
