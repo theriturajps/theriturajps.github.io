@@ -140,11 +140,6 @@ Exposing your bot token in client-side code lets anyone spam your bot. Here’s 
    };
    ```
 
-   ✅ *Improvements made:*
-
-   * Response body is now valid JSON (helps with debugging and integrations).
-   * Slight formatting for clarity.
-
 3. **Set up environment variables in Netlify:**
 
    * Go to your Netlify **Site Settings → Environment Variables**.
