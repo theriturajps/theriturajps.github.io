@@ -111,29 +111,47 @@ form.addEventListener('submit', async (e) => {
 
 Exposing your bot token in client-side code lets anyone spam your bot. Here’s how to fix it:
 
-### Option A: Use Netlify Functions (Free)
+### **Option A: Use Netlify Functions (Free)**
 
-1. Create a Netlify account and set up a site.
-2. Create a `netlify/functions/send-telegram.js` file:
+1. **Create a Netlify account and set up a site.**
 
-  ```javascript
-  exports.handler = async (event) => {
-    const { name, email, message } = JSON.parse(event.body);
-    const text = `New message from ${name} (${email}): ${message}`;
-    
-    await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: process.env.CHAT_ID,
-        text: text
-      })
-    });
-    
-    return { statusCode: 200, body: 'OK' };
-  };
-  ```
-3. Add `BOT_TOKEN` and `CHAT_ID` to Netlify’s environment variables.
+   * You can deploy a simple site from GitHub or start from a template on [netlify.com](https://www.netlify.com/).
+
+2. **Create a Netlify function file at `netlify/functions/send-telegram.js`:**
+
+   ```javascript
+   exports.handler = async (event) => {
+     const { name, email, message } = JSON.parse(event.body);
+     const text = `New message from ${name} (${email}): ${message}`;
+     
+     await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({
+         chat_id: process.env.CHAT_ID,
+         text: text
+       })
+     });
+     
+     return {
+       statusCode: 200,
+       body: JSON.stringify({ success: true })
+     };
+   };
+   ```
+
+   ✅ *Improvements made:*
+
+   * Response body is now valid JSON (helps with debugging and integrations).
+   * Slight formatting for clarity.
+
+3. **Set up environment variables in Netlify:**
+
+   * Go to your Netlify **Site Settings → Environment Variables**.
+   * Add:
+
+     * `BOT_TOKEN` = your Telegram bot token
+     * `CHAT_ID` = the chat ID from the `/getUpdates` step
 
 ### Option B: Add Google reCAPTCHA
 
@@ -143,7 +161,6 @@ Exposing your bot token in client-side code lets anyone spam your bot. Here’s 
   ```html
   <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
   ```
-
 3. Validate the CAPTCHA in your JavaScript before sending the message.
 
 ## Step 6: Test and Debug
