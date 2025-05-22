@@ -43,12 +43,13 @@ The recommended YAML front block is:
 
 ```
 ---
-layout:
-title:
-author:
-categories:
+layout: post
+title: ""
+description: ""
+author: "Ritu Raj Pratap Singh"
+categories: 
 tags: []
-image:
+image: ____.webp
 ---
 ```
 
