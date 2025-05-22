@@ -1,0 +1,257 @@
+<style>
+  /* Code block container styling */
+  .code-container {
+    position: relative;
+    margin: 1.5rem 0;
+  }
+  
+  .code-container pre {
+    margin: 0;
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    overflow-x: auto;
+  }
+  
+  /* Copy button styling */
+  .copy-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    z-index: 10;
+    min-width: 70px;
+    justify-content: center;
+  }
+  
+  .copy-btn:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .copy-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .copy-btn.copied {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  .copy-btn.copied:hover {
+    background: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  /* Icon styling */
+  .copy-icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+  
+  /* Language label styling */
+  .code-language {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: #6c757d;
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 5;
+  }
+  
+  /* Adjust padding when language label is present */
+  .code-container.has-language pre {
+    padding-top: 2.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .copy-btn {
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      min-width: 60px;
+    }
+    
+    .code-language {
+      top: 0.5rem;
+      left: 0.5rem;
+      font-size: 0.65rem;
+    }
+    
+    .code-container.has-language pre {
+      padding-top: 2.25rem;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to create copy button
+  function createCopyButton() {
+    const button = document.createElement('button');
+    button.className = 'copy-btn';
+    button.type = 'button';
+    button.innerHTML = `
+      <svg class="copy-icon" viewBox="0 0 24 24">
+        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+      </svg>
+      <span class="copy-text">Copy</span>
+    `;
+    return button;
+  }
+
+  // Function to show success feedback
+  function showCopySuccess(button) {
+    const originalContent = button.innerHTML;
+    button.classList.add('copied');
+    button.innerHTML = `
+      <svg class="copy-icon" viewBox="0 0 24 24">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+      <span class="copy-text">Copied!</span>
+    `;
+    
+    setTimeout(() => {
+      button.classList.remove('copied');
+      button.innerHTML = originalContent;
+    }, 2000);
+  }
+
+  // Function to copy text to clipboard
+  async function copyToClipboard(text, button) {
+    try {
+      // Modern approach
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        showCopySuccess(button);
+      } else {
+        // Fallback approach
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+          document.execCommand('copy');
+          showCopySuccess(button);
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+          // Show error feedback
+          button.innerHTML = `
+            <svg class="copy-icon" viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+            <span class="copy-text">Error</span>
+          `;
+          setTimeout(() => {
+            button.innerHTML = `
+              <svg class="copy-icon" viewBox="0 0 24 24">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              <span class="copy-text">Copy</span>
+            `;
+          }, 2000);
+        } finally {
+          document.body.removeChild(textArea);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  }
+
+  // Find all code blocks and add copy buttons
+  const codeBlocks = document.querySelectorAll('pre code, pre');
+  
+  codeBlocks.forEach((codeBlock) => {
+    // Skip if it's a nested code element
+    if (codeBlock.tagName === 'CODE' && codeBlock.parentElement.tagName !== 'PRE') {
+      return;
+    }
+    
+    const pre = codeBlock.tagName === 'PRE' ? codeBlock : codeBlock.parentElement;
+    
+    // Skip if already processed
+    if (pre.closest('.code-container')) {
+      return;
+    }
+    
+    // Create wrapper container
+    const container = document.createElement('div');
+    container.className = 'code-container';
+    
+    // Check for language class (common in syntax highlighters)
+    const codeElement = pre.querySelector('code') || pre;
+    const classList = Array.from(codeElement.classList);
+    const languageClass = classList.find(cls => 
+      cls.startsWith('language-') || 
+      cls.startsWith('lang-') || 
+      cls.match(/^(javascript|js|python|html|css|java|cpp|c|php|ruby|go|rust|typescript|ts|json|xml|yaml|sql|bash|shell|powershell)$/i)
+    );
+    
+    let language = '';
+    if (languageClass) {
+      if (languageClass.startsWith('language-')) {
+        language = languageClass.replace('language-', '');
+      } else if (languageClass.startsWith('lang-')) {
+        language = languageClass.replace('lang-', '');
+      } else {
+        language = languageClass;
+      }
+    }
+    
+    // Wrap the pre element
+    pre.parentNode.insertBefore(container, pre);
+    container.appendChild(pre);
+    
+    // Add language label if detected
+    if (language) {
+      container.classList.add('has-language');
+      const languageLabel = document.createElement('span');
+      languageLabel.className = 'code-language';
+      languageLabel.textContent = language;
+      container.appendChild(languageLabel);
+    }
+    
+    // Create and add copy button
+    const copyButton = createCopyButton();
+    container.appendChild(copyButton);
+    
+    // Add click event listener
+    copyButton.addEventListener('click', () => {
+      const code = codeElement.textContent || codeElement.innerText;
+      copyToClipboard(code, copyButton);
+    });
+  });
+});
+</script>
