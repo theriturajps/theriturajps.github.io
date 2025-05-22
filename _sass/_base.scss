@@ -4,41 +4,48 @@
 
 body {
   font-family: $serif-font-family;
-  font-size: 16px; // Changed from 18px to 16px
-  color: $body-color;
+  font-size: 16px;
+  color: var(--text-color);
   line-height: 1.75rem;
+  background-color: var(--bg-color);
 }
 
 @media (max-width: $elements-responsive-width) {
   body {
-    font-size: 14px;  // Keep mobile size as is
+    font-size: 14px;
     line-height: 1.5rem;
   }
+
   body h1 {
     font-size: 1.5rem;
   }
 }
 
 h1 {
-  font-size: 1.8rem; // Reduced from 2rem to 1.8rem
+  font-size: 1.8rem;
 }
 
 h1 a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $sans-serif-font-family;
-  color: $dark-gray-color;
+  color: var(--header-color);
 }
 
 a {
   text-decoration: none;
-  color: $dark-gray-color;
+  color: var(--link-color);
 }
 
 a:hover {
-  color: $link-color;
+  color: var(--link-color);
   border-bottom: none;
 }
 
@@ -51,13 +58,13 @@ img {
 blockquote {
   margin: 10px 20px 10px;
   padding: 0px 15px;
-  border-left: 0.25em solid $extra-light-gray-color;
-  color: $light-gray-color;
+  border-left: 0.25em solid var(--extra-light-gray);
+  color: var(--light-gray);
   line-height: 1.5;
 }
 
 hr {
-  border-top: 1px solid $extra-light-gray-color;
+  border-top: 1px solid var(--extra-light-gray);
 }
 
 /*
