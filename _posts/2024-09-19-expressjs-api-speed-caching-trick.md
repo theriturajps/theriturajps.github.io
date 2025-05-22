@@ -7,7 +7,7 @@ categories: Guide
 tags: [APIs, Express, Node]
 ---
 
-**In my 2 years as a [Node.js](https://nodejs.org/docs/latest/api/) developer**, I've discovered most Express.js tutorials miss a critical caching strategy that reduced API response times from 800ms to **under 80ms** for my fintech clients. This isn’t about Redis or CDNs – it’s about **[middleware](https://exonoob.in/blog/create-custom-middleware-in-nodejs-with-express/) orchestration** that even senior engineers overlook.
+**In my 2 years as a [Node.js](https://nodejs.org/docs/latest/api/) developer**, I've discovered most Express.js tutorials miss a critical caching strategy that reduced API response times from 800ms to **under 80ms** for my fintech clients. This isn’t about Redis or CDNs – it’s about **middleware orchestration** that even senior engineers overlook.
 
 ![Express.js Caching Optimization](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80)  
 
@@ -16,7 +16,7 @@ tags: [APIs, Express, Node]
 Most developers make these 3 mistakes:
 1. Caching at the wrong layer (route vs [middleware](https://expressjs.com/en/guide/using-middleware.html))
 2. Ignoring ETag validation costs
-3. Overlooking [middleware execution](https://exonoob.in/blog/expressjs-without-routing-handling-everything-in-a-single-middleware/) order
+3. Overlooking middleware execution order
 
 A 2023 [Cloudflare report](https://www.cloudflare.com/learning/performance/why-cache-matters/) shows 42% of API latency comes from redundant processing that could be cached.
 
