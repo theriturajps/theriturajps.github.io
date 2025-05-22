@@ -2,6 +2,17 @@
   Base
 */
 
+* {
+  user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+input, textarea, pre, code {
+  user-select: text !important;
+}
+
 body {
   font-family: $serif-font-family;
   font-size: 16px; // Changed from 18px to 16px
