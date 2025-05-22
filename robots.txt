@@ -9,5 +9,4 @@ Disallow: /README.md
 Allow: /sitemap.xml
 Allow: /feed.xml
 
-# Sitemap location (replace with your actual sitemap URL)
 Sitemap: https://theriturajps.github.io/sitemap.xml
