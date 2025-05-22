@@ -54,25 +54,27 @@ layout: default
   {% endif %}
 </div>
 
-<!-- All Posts Data for Search -->
-<script>
-// Make all posts data available to search
-const allPostsData = [
+<!-- All posts data for search (hidden from view) -->
+<script type="application/json" id="posts-data">
+[
   {% for post in site.posts %}
-  {
-    title: {{ post.title | jsonify }},
-    excerpt: {{ post.content | strip_html | truncate: 125 | jsonify }},
-    url: "{{ site.github.url }}{{ post.url }}",
-    date: "{{ post.date | date_to_string }}",
-    image: {% if post.image %}"{{ site.github.url }}/assets/img/{{ post.image }}"{% else %}null{% endif %}
-  }{% unless forloop.last %},{% endunless %}
+    {
+      "title": {{ post.title | jsonify }},
+      "excerpt": {{ post.content | strip_html | truncate: 125 | jsonify }},
+      "url": "{{ site.github.url }}{{ post.url }}",
+      "date": "{{ post.date | date_to_string }}",
+      "image": {% if post.image %}"{{ site.github.url }}/assets/img/{{ post.image }}"{% else %}null{% endif %}
+    }{% unless forloop.last %},{% endunless %}
   {% endfor %}
-];
+]
 </script>
 
 <!-- Search JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Get all posts data from the JSON script tag
+  const postsData = JSON.parse(document.getElementById('posts-data').textContent);
+  
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('results-container');
   const postsWrapper = document.getElementById('posts-wrapper');
@@ -99,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <a href="${post.url}" aria-label="${post.title}">${post.title}</a>
             </h3>
             <div class="post-meta">
-              <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+              <i class="fa fa-calendar" aria-hidden="true"></i> ${post.date} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
             </div>
             <div class="post-excerpt">
               ${post.excerpt} <a href="${post.url}" aria-label="Continue reading ${post.title}" class="read-more">Continue reading</a>
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resultsContainer.innerHTML = '';
     
     // Filter posts based on search term
-    const filteredPosts = allPostsData.filter(post => 
+    const filteredPosts = postsData.filter(post => 
       post.title.toLowerCase().includes(searchTerm) || 
       post.excerpt.toLowerCase().includes(searchTerm)
     );
@@ -216,5 +218,9 @@ document.addEventListener('DOMContentLoaded', function() {
     padding: 2rem;
     color: #666;
     font-style: italic;
+  }
+  
+  #posts-data {
+    display: none;
   }
 </style>
