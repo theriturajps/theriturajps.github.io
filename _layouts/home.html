@@ -54,29 +54,25 @@ layout: default
   {% endif %}
 </div>
 
+<!-- All Posts Data for Search -->
+<script>
+// Make all posts data available to search
+const allPostsData = [
+  {% for post in site.posts %}
+  {
+    title: {{ post.title | jsonify }},
+    excerpt: {{ post.content | strip_html | truncate: 125 | jsonify }},
+    url: "{{ site.github.url }}{{ post.url }}",
+    date: "{{ post.date | date_to_string }}",
+    image: {% if post.image %}"{{ site.github.url }}/assets/img/{{ post.image }}"{% else %}null{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+</script>
+
 <!-- Search JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Store all posts data for search
-  const posts = [];
-  
-  // Get all post containers
-  const postContainers = document.querySelectorAll('.posts-container');
-  
-  // Extract post data and store in the posts array
-  postContainers.forEach(function(container) {
-    const titleElement = container.querySelector('.post-title a');
-    const excerptElement = container.querySelector('.post-excerpt');
-    
-    if (titleElement && excerptElement) {
-      posts.push({
-        title: titleElement.innerText,
-        excerpt: excerptElement.innerText,
-        element: container
-      });
-    }
-  });
-  
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('results-container');
   const postsWrapper = document.getElementById('posts-wrapper');
@@ -84,6 +80,35 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Hide clear button initially
   clearButton.style.display = 'none';
+  
+  // Function to create post HTML
+  function createPostHTML(post) {
+    const imageHTML = post.image ? 
+      `<div class="thumbnail-container">
+         <a href="${post.url}" aria-label="Continue reading ${post.title}">
+           <img src="${post.image}" alt="${post.title}">
+         </a>
+       </div>` : '';
+    
+    return `
+      <div class="posts-container">
+        <div class="compact-card">
+          ${imageHTML}
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="${post.url}" aria-label="${post.title}">${post.title}</a>
+            </h3>
+            <div class="post-meta">
+              <i class="fa fa-calendar" aria-hidden="true"></i> ${post.date} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+            </div>
+            <div class="post-excerpt">
+              ${post.excerpt} <a href="${post.url}" aria-label="Continue reading ${post.title}" class="read-more">Continue reading</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
   
   // Search function
   function performSearch() {
@@ -106,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resultsContainer.innerHTML = '';
     
     // Filter posts based on search term
-    const filteredPosts = posts.filter(post => 
+    const filteredPosts = allPostsData.filter(post => 
       post.title.toLowerCase().includes(searchTerm) || 
       post.excerpt.toLowerCase().includes(searchTerm)
     );
@@ -114,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display results
     if (filteredPosts.length > 0) {
       filteredPosts.forEach(post => {
-        resultsContainer.appendChild(post.element.cloneNode(true));
+        resultsContainer.innerHTML += createPostHTML(post);
       });
     } else {
       resultsContainer.innerHTML = '<div class="no-results">No posts found matching your search.</div>';
