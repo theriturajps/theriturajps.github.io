@@ -3,42 +3,39 @@
 */
 
 .posts-container {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: 1.5rem;
 }
 
 .compact-card {
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .compact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .post-content {
-  padding: 1.25rem;
+  padding: 0.8rem 1rem;
 }
 
 .post-title {
-  margin: 0 0 0.5rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
   font-size: 1.2rem;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .post-title a {
   text-decoration: none;
   color: $dark-gray-color;
-  transition: color 0.2s ease;
 }
 
 .post-title a:hover {
@@ -46,29 +43,25 @@
 }
 
 .post-meta {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: 0.75rem;
   color: $light-gray-color;
   font-family: $sans-serif-font-family;
-  display: flex;
-  gap: 10px;
 }
 
 .post-excerpt {
-  margin: 0;
+  margin-bottom: 0;
   font-size: 0.9rem;
-  line-height: 1.5;
-  color: #555;
+  line-height: 1.4;
 }
 
 .read-more {
-  display: inline-block;
-  margin-top: 0.75rem;
+  display: inline;
+  margin-left: 5px;
   font-size: 0.8rem;
   font-weight: 600;
   color: $link-color;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 .read-more:hover {
@@ -87,13 +80,13 @@
 
 .thumbnail-container img {
   width: 100%;
-  height: 180px;
+  height: 160px;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .thumbnail-container img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 /*
@@ -101,41 +94,29 @@
 */
 
 .pagination {
-  margin: 3rem 0;
+  overflow: hidden;
   font-family: $sans-serif-font-family;
   text-align: center;
 }
 
 .pagination a {
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 .pagination-button {
   color: $light-gray-color;
   border: 1px solid $pagination-button-color;
-  padding: 8px 18px;
-  margin: 0 5px;
+  padding: 5px 15px;
   display: inline-block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-.pagination-button:hover {
-  color: $dark-gray-color;
-  border-color: #ccc;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 0.6rem;
 }
 
 .pagination-active {
-  color: white;
-  background-color: $link-color;
-  border-color: $link-color;
+  color: $link-color;
 }
 
 .pagination-active:hover {
-  background-color: darken($link-color, 5%);
-  border-color: darken($link-color, 5%);
-  color: white;
+  background-color: $pagination-button-color;
 }
