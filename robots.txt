@@ -5,6 +5,7 @@ Disallow: /*.json$
 Disallow: /articles.json
 Disallow: /404.html
 Disallow: /README.md
+Disallow: /blog/text-formatting
 
 Allow: /sitemap.xml
 Allow: /feed.xml
