@@ -3,69 +3,138 @@
 */
 
 .posts-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   padding: 0;
   list-style: none;
+  display: grid;
+  gap: 2rem;
 }
 
 .compact-card {
   display: flex;
   flex-direction: column;
-  border-radius: 6px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: $shadow-md;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.compact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .compact-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: $shadow-xl;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.compact-card:hover::before {
+  opacity: 1;
 }
 
 .post-content {
-  padding: 0.8rem 1rem;
+  padding: 1.5rem 2rem 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .post-title {
   margin-top: 0;
-  margin-bottom: 0.4rem;
-  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.375rem;
   line-height: 1.3;
+  font-weight: 700;
+  flex-grow: 1;
 }
 
 .post-title a {
   text-decoration: none;
   color: $dark-gray-color;
+  background: linear-gradient(135deg, $dark-gray-color, $body-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-title a:hover {
-  color: $link-color;
+  background: linear-gradient(135deg, $link-color, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: none;
 }
 
 .post-meta {
-  margin-bottom: 0.5rem;
-  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
   color: $light-gray-color;
   font-family: $sans-serif-font-family;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-meta::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: $link-color;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .post-excerpt {
-  margin-bottom: 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: $body-color;
+  opacity: 0.9;
 }
 
 .read-more {
-  display: inline;
-  margin-left: 5px;
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  font-size: 0.875rem;
   font-weight: 600;
   color: $link-color;
   text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  align-self: flex-start;
 }
 
 .read-more:hover {
-  text-decoration: underline;
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateX(4px);
+}
+
+.read-more::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.read-more:hover::after {
+  transform: translateX(4px);
 }
 
 /*
@@ -76,17 +145,38 @@
   max-width: 100%;
   overflow: hidden;
   margin-bottom: 0;
+  position: relative;
+  height: 200px;
+}
+
+.thumbnail-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.compact-card:hover .thumbnail-container::after {
+  opacity: 1;
 }
 
 .thumbnail-container img {
   width: 100%;
-  height: 160px;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .thumbnail-container img:hover {
-  transform: scale(1.03);
+  transform: scale(1.1);
+  box-shadow: none;
 }
 
 /*
@@ -97,6 +187,10 @@
   overflow: hidden;
   font-family: $sans-serif-font-family;
   text-align: center;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .pagination a {
@@ -106,17 +200,79 @@
 .pagination-button {
   color: $light-gray-color;
   border: 1px solid $pagination-button-color;
-  padding: 5px 15px;
+  padding: 0.75rem 1.5rem;
   display: inline-block;
-  font-size: 13px;
-  font-weight: bold;
-  border-radius: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pagination-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.pagination-button:hover::before {
+  left: 100%;
+}
+
+.pagination-button:hover {
+  color: $link-color;
+  border-color: $link-color;
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+  box-shadow: $shadow-md;
 }
 
 .pagination-active {
-  color: $link-color;
+  color: white;
+  background: linear-gradient(135deg, $link-color, #8b5cf6);
+  border-color: $link-color;
+  box-shadow: $shadow-md;
 }
 
 .pagination-active:hover {
-  background-color: $pagination-button-color;
+  background: linear-gradient(135deg, darken($link-color, 10%), darken(#8b5cf6, 10%));
+  transform: translateY(-2px);
+  box-shadow: $shadow-lg;
+}
+
+// Responsive design improvements
+@media (max-width: $container-responsive-width) {
+  .compact-card {
+    border-radius: 12px;
+  }
+
+  .post-content {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .post-title {
+    font-size: 1.25rem;
+  }
+
+  .thumbnail-container {
+    height: 160px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pagination-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }

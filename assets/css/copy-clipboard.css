@@ -1,68 +1,78 @@
 .copy-btn-wrapper {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   z-index: 10;
 }
 
 .copy-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  padding: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  backdrop-filter: blur(4px);
+  width: 32px;
+  height: 32px;
+  backdrop-filter: blur(8px);
   color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .copy-btn:hover {
   background: rgba(255, 255, 255, 1);
-  border-color: rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .copy-btn:active {
-  transform: translateY(0);
+  transform: translateY(-1px) scale(1.02);
+  transition: all 0.1s ease;
 }
 
 .copy-btn.copied {
-  background: rgba(34, 197, 94, 0.9);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.9), rgba(22, 163, 74, 0.9));
   border-color: rgba(34, 197, 94, 0.3);
   color: white;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
 }
 
 .copy-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.copy-btn:hover svg {
+  transform: scale(1.1);
 }
 
 /* Ensure code blocks have relative positioning */
 div[class*="language-"] {
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Hide copy button on very small screens */
 @media (max-width: 480px) {
   .copy-btn-wrapper {
-    top: 4px;
-    right: 4px;
+    top: 8px;
+    right: 8px;
   }
-  
+
   .copy-btn {
-    width: 24px;
-    height: 24px;
-    padding: 4px;
+    width: 28px;
+    height: 28px;
+    padding: 6px;
   }
-  
+
   .copy-btn svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
 }

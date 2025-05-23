@@ -3,36 +3,58 @@
 */
 
 * {
-  user-select: none; /* Standard */
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
 }
 
 body {
   font-family: $serif-font-family;
-  font-size: 16px; // Changed from 18px to 16px
+  font-size: 16px;
   color: $body-color;
-  line-height: 1.75rem;
+  line-height: 1.7;
+  background: linear-gradient(135deg, #fefefe 0%, #f8fafc 100%);
+  min-height: 100vh;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: $elements-responsive-width) {
   body {
-    font-size: 14px; // Keep mobile size as is
-    line-height: 1.5rem;
+    font-size: 15px;
+    line-height: 1.6;
   }
 
   body h1 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }
 
 h1 {
-  font-size: 1.8rem; // Reduced from 2rem to 1.8rem
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, $dark-gray-color, $body-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h1 a {
   text-decoration: none;
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h1,
@@ -43,34 +65,97 @@ h5,
 h6 {
   font-family: $sans-serif-font-family;
   color: $dark-gray-color;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 a {
   text-decoration: none;
-  color: $dark-gray-color;
+  color: $link-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 a:hover {
-  color: $link-color;
-  border-bottom: none;
+  color: darken($link-color, 10%);
+  transform: translateY(-1px);
+}
+
+a:focus {
+  outline: 2px solid $link-color;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img:hover {
+  transform: translateY(-2px);
+  box-shadow: $shadow-lg;
 }
 
 blockquote {
-  margin: 10px 20px 10px;
-  padding: 0px 15px;
-  border-left: 0.25em solid $extra-light-gray-color;
-  color: $light-gray-color;
-  line-height: 1.5;
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid $link-color;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%);
+  color: $body-color;
+  line-height: 1.6;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  position: relative;
+  box-shadow: $shadow-sm;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: rgba(59, 130, 246, 0.2);
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  line-height: 1;
 }
 
 hr {
-  border-top: 1px solid $extra-light-gray-color;
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $extra-light-gray-color, transparent);
+  margin: 3rem 0;
+  border-radius: 1px;
 }
 
 /*
@@ -78,19 +163,50 @@ hr {
 */
 
 table {
-  border-collapse: collapse;
-  margin-bottom: 30px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
   width: 100%;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  transition: all 0.3s ease;
 }
 
-table,
-th,
-td {
-  border: 1px solid black;
+table:hover {
+  box-shadow: $shadow-lg;
 }
 
 th,
 td {
-  padding: 15px;
+  padding: 1rem 1.5rem;
   text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+th {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  font-weight: 600;
+  color: $dark-gray-color;
+  font-family: $sans-serif-font-family;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+tr:hover td {
+  background-color: rgba(59, 130, 246, 0.02);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+// Smooth animations for all elements
+* {
+  &:not(html):not(body) {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
