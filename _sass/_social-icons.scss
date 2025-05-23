@@ -3,128 +3,66 @@
 */
 
 .sharing-icons a {
-  padding: 0.5rem;
-  margin-right: 0.75rem;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  box-shadow: $shadow-sm;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 10px;
 }
 
-.sharing-icons a:hover {
-  transform: translateY(-3px) scale(1.1);
-  box-shadow: $shadow-md;
-  background: rgba(255, 255, 255, 1);
-}
-
-@mixin social-media-icon($color, $transition) {
+@mixin social-media-icon($color, $transition){
+  -webkit-transition: $transition;
+  -o-transition: $transition;
+  -ms-transition: $transition;
+  -moz-transition: $transition;
   transition: $transition;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, $color, lighten($color, 10%));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    color: white !important;
-    transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 8px 25px rgba($color, 0.4);
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-
-  &>* {
-    position: relative;
-    z-index: 1;
+  &:hover{
+    color: $color;
   }
 }
 
 .fa-envelope {
+  padding: 5px;
   @include social-media-icon($envelope-color, $icon-transition-time);
 }
 
 .fa-twitter {
+  padding: 5px;
   @include social-media-icon($twitter-color, $icon-transition-time);
 }
 
 .fa-instagram {
+  padding: 5px;
   @include social-media-icon($instagram-color, $icon-transition-time);
 }
 
 .fa-github {
+  padding: 5px;
   @include social-media-icon($github-color, $icon-transition-time);
 }
 
 .fa-linkedin {
+  padding: 5px;
   @include social-media-icon($linkedin-color, $icon-transition-time);
 }
 
 .fa-facebook {
+  padding: 5px;
   @include social-media-icon($facebook-color, $icon-transition-time);
 }
 
 .fa-pinterest {
+  padding: 5px;
   @include social-media-icon($pinterest-color, $icon-transition-time);
 }
 
 .fa-medium {
+  padding: 5px;
   @include social-media-icon($medium-color, $icon-transition-time);
 }
 
 .fa-codepen {
+  padding: 5px;
   @include social-media-icon($codepen-color, $icon-transition-time);
 }
 
 .fa-rss-square {
+  padding: 5px;
   @include social-media-icon($rss-color, $icon-transition-time);
-}
-
-// Pulse animation for social icons
-@keyframes socialPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-  }
-}
-
-// Add pulse effect to first social icon
-.sharing-icons a:first-child {
-  animation: socialPulse 2s infinite;
-}
-
-// Staggered hover effect
-.sharing-icons:hover a {
-  transform: scale(0.9);
-  opacity: 0.6;
-}
-
-.sharing-icons a:hover {
-  transform: translateY(-3px) scale(1.1) !important;
-  opacity: 1 !important;
 }

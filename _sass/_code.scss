@@ -5,176 +5,66 @@
 code,
 pre {
   font-family: $code-font-family;
-  font-feature-settings: "liga" 1, "calt" 1;
 }
-
 code {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  background: linear-gradient(135deg, $code-background-color 0%, darken($code-background-color, 2%) 100%);
-  border-radius: 6px;
-  color: #374151;
-  font-weight: 500;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  padding: .25em .5em;
+  font-size: .8rem;
+  background-color: $code-background-color;
+  border-radius: 3px;
 }
-
-code:hover {
-  background: darken($code-background-color, 3%);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 pre {
   display: block;
-  margin: 2rem 0;
-  padding: 1.5rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: .8rem;
+  line-height: 1.4;
   white-space: pre;
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  background: linear-gradient(135deg, $code-background-color 0%, darken($code-background-color, 2%) 100%);
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: $shadow-md;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  background-color: $code-background-color;
 }
-
-pre:hover {
-  box-shadow: $shadow-lg;
-  transform: translateY(-2px);
-}
-
-pre::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-  border-radius: 12px 12px 0 0;
-}
-
 pre code {
   padding: 0;
   font-size: 100%;
   color: inherit;
   background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-pre code:hover {
-  background: transparent;
-  transform: none;
-  box-shadow: none;
 }
 
 /* Horizontal code overflow fix */
 pre.highlight {
   white-space: pre;
   overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
-
-pre.highlight::-webkit-scrollbar {
-  height: 6px;
-}
-
-pre.highlight::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-pre.highlight::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-}
-
-pre.highlight::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Pygments via Jekyll */
 .highlight {
-  margin: 2rem 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: linear-gradient(135deg, $code-background-color 0%, darken($code-background-color, 2%) 100%);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: $shadow-md;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 4px;
 }
-
-.highlight:hover {
-  box-shadow: $shadow-lg;
-  transform: translateY(-2px);
-}
-
-.highlight::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-  z-index: 1;
-}
-
 .highlight pre {
-  margin: 0;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-}
-
-.highlight pre:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-.highlight pre::before {
-  display: none;
+  margin-bottom: 0;
 }
 
 /* Gist via GitHub Pages */
 .gist .gist-file {
   font-family: $code-font-family !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  box-shadow: $shadow-md !important;
-  overflow: hidden !important;
 }
-
 .gist .markdown-body {
-  padding: 1.5rem !important;
+  padding: 15px;
 }
-
 .gist pre {
-  padding: 0 !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  padding: 0;
+  background-color: transparent;
 }
-
 .gist .gist-file .gist-data {
-  font-size: 0.875rem !important;
-  line-height: 1.6 !important;
+  font-size: .8rem !important;
+  line-height: 1.4;
 }
-
 .gist code {
-  padding: 0 !important;
-  color: inherit !important;
-  background-color: transparent !important;
-  border-radius: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0;
 }
