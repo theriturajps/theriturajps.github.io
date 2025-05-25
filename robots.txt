@@ -1,12 +1,13 @@
 User-agent: *
-Allow: /
-
+Disallow: /
 Disallow: /*.json$
 Disallow: /articles.json
 Disallow: /404.html
 Disallow: /README.md
 Disallow: /blog/text-formatting
 
+Allow: /blog/
+Allow: /page/
 Allow: /sitemap.xml
 Allow: /feed.xml
 
