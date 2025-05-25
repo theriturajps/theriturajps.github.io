@@ -1,9 +1,9 @@
 User-agent: *
 Disallow: /
 
+Allow: /$
 Allow: /blog/
 Allow: /page/
-Allow: /sitemap.xml
 Allow: /feed.xml
 
 Sitemap: https://theriturajps.github.io/sitemap.xml
