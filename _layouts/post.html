@@ -2,26 +2,196 @@
 layout: default
 ---
 
-<h1>
-  {{ page.title }}
-</h1>
-{% if page.image %}
-  <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
-{% endif %}
-<article>
-  {{ content }}
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+  <!-- Post Header -->
+  <header class="post-header">
+    {% if page.image %}
+      <div class="post-hero-image">
+        <img src="{{ site.baseurl }}/assets/img/{{ page.image }}" 
+             alt="{{ page.title }}" 
+             itemprop="image">
+      </div>
+    {% endif %}
+    
+    <div class="post-header-content">
+      <div class="post-meta">
+        <div class="post-meta-left">
+          <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+            <i class="far fa-calendar"></i>
+            {{ page.date | date: "%B %d, %Y" }}
+          </time>
+          {% if site.data.settings.features.reading_time %}
+            <span class="reading-time">
+              <i class="far fa-clock"></i>
+              {% include reading-time.html content=page.content %}
+            </span>
+          {% endif %}
+        </div>
+        
+        <div class="post-meta-right">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+      
+      <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+      
+      {% if page.description %}
+        <p class="post-description" itemprop="description">{{ page.description }}</p>
+      {% endif %}
+      
+      <div class="post-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <span>By <span itemprop="name">{{ page.author | default: site.author }}</span></span>
+      </div>
+      
+      {% if page.tags.size > 0 %}
+        <div class="post-tags">
+          {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="tag">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+  
+  <!-- Table of Contents -->
+  <div class="toc-container">
+    <div class="toc">
+      <h3>Table of Contents</h3>
+      <div id="toc-content"></div>
+    </div>
+  </div>
+  
+  <!-- Post Content -->
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+  
+  <!-- Post Footer -->
+  <footer class="post-footer">
+    {% if site.data.settings.features.social_sharing %}
+      <div class="social-sharing">
+        <h3>{{ site.data.settings.sharing_button_prompt }}</h3>
+        <div class="sharing-buttons">
+          <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ page.url }}" 
+             target="_blank" 
+             class="share-btn twitter"
+             aria-label="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" 
+             target="_blank" 
+             class="share-btn facebook"
+             aria-label="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" 
+             target="_blank" 
+             class="share-btn linkedin"
+             aria-label="Share on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:?subject={{ page.title | uri_escape }}&body=Check out this article: {{ site.url }}{{ page.url }}" 
+             class="share-btn email"
+             aria-label="Share via Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+    
+    <!-- Post Navigation -->
+    {% if site.data.settings.features.post_navigation %}
+      <nav class="post-navigation">
+        {% if page.previous %}
+          <a href="{{ site.baseurl }}{{ page.previous.url }}" class="nav-prev">
+            <i class="fas fa-chevron-left"></i>
+            <div>
+              <span class="nav-label">Previous</span>
+              <span class="nav-title">{{ page.previous.title }}</span>
+            </div>
+          </a>
+        {% endif %}
+        
+        {% if page.next %}
+          <a href="{{ site.baseurl }}{{ page.next.url }}" class="nav-next">
+            <div>
+              <span class="nav-label">Next</span>
+              <span class="nav-title">{{ page.next.title }}</span>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </footer>
+  
+  <!-- Related Posts -->
+  {% if site.data.settings.features.related_posts %}
+    {% include related-posts.html %}
+  {% endif %}
+  
+  <!-- Comments -->
+  {% if site.data.settings.disqus.comments %}
+    {% include disqus.html %}
+  {% endif %}
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title | escape }}",
+    "description": "{{ page.description | default: page.content | strip_html | truncate: 160 | escape }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ page.author | default: site.author }}"
+    },
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.date | date_to_xmlschema }}",
+    "url": "{{ site.url }}{{ page.url }}",
+    "image": "{{ site.url }}/assets/img/{{ page.image | default: 'default-post.webp' }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/assets/img/logo.png"
+      }
+    }
+  }
+  </script>
 </article>
-{% if site.hide_post_date != true %}
-  {% include post-date.html %}
-{% endif %}
-{% if site.hide_post_share != true %}
-  {% include social-sharing.html %}
-{% endif %}
-{% if site.hide_related_posts != true %}
-  {% include related-posts.html %}
-{% endif %}
-{% if site.data.settings.disqus.comments %}
-  {% include disqus.html %}
-{% endif %}
 
+<!-- Copy to Clipboard -->
 {% include copy-clipboard.html %}
+
+<!-- Table of Contents Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tocContainer = document.querySelector('.toc-container');
+  const tocContent = document.getElementById('toc-content');
+  const headings = document.querySelectorAll('.post-content h2, .post-content h3, .post-content h4');
+  
+  if (headings.length > 0) {
+    let tocHTML = '<ul>';
+    
+    headings.forEach((heading, index) => {
+      const id = `heading-${index}`;
+      heading.id = id;
+      
+      const level = heading.tagName.toLowerCase();
+      const text = heading.textContent;
+      
+      tocHTML += `<li class="toc-${level}"><a href="#${id}">${text}</a></li>`;
+    });
+    
+    tocHTML += '</ul>';
+    tocContent.innerHTML = tocHTML;
+    tocContainer.style.display = 'block';
+  } else {
+    tocContainer.style.display = 'none';
+  }
+});
+</script>

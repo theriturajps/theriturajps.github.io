@@ -1,0 +1,3 @@
+{% assign words = include.content | number_of_words %}
+{% assign reading_time = words | divided_by: site.data.settings.reading_speed | at_least: 1 %}
+{{ reading_time }} min read

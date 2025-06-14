@@ -1,4 +1,104 @@
-<footer class="footer">
-  {% include social-icons.html %}
-  <div class="footer-description"><a href="{{ site.github.url }}/">{{ site.title }} by {{ site.author }}</a></div>
+<footer class="footer" role="contentinfo">
+  <div class="footer-container">
+    <!-- Footer Content -->
+    <div class="footer-content">
+      <!-- About Section -->
+      <div class="footer-section">
+        <h3>{{ site.title }}</h3>
+        <p>{{ site.description }}</p>
+        <div class="social-links">
+          {% for social in site.data.settings.social %}
+            <a href="{{ social.link }}" 
+               class="social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="{{ social.label }}">
+              <i class="fab fa-{{ social.icon }}"></i>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          {% for item in site.data.settings.menu %}
+            <li><a href="{{ site.baseurl }}{{ item.url }}">{{ item.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <!-- Categories -->
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul class="footer-links">
+          {% assign categories = site.categories | sort %}
+          {% for category in categories limit:5 %}
+            <li>
+              <a href="{{ site.baseurl }}/categories/#{{ category[0] | slugify }}">
+                {{ category[0] }} ({{ category[1].size }})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <!-- Newsletter -->
+      <div class="footer-section">
+        <h3>Stay Updated</h3>
+        <p>Subscribe to get the latest articles delivered to your inbox.</p>
+        <form class="newsletter-form" action="#" method="post">
+          <div class="input-group">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" aria-label="Subscribe">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+        <div class="footer-meta">
+          <a href="{{ site.baseurl }}/feed.xml" aria-label="RSS Feed">
+            <i class="fas fa-rss"></i> RSS
+          </a>
+          <a href="{{ site.baseurl }}/sitemap.xml" aria-label="Sitemap">
+            <i class="fas fa-sitemap"></i> Sitemap
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+// Back to top functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const backToTop = document.getElementById('back-to-top');
+  
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  
+  backToTop.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
+</script>

@@ -6,18 +6,76 @@ paginate:            10
 # Build settings
 markdown:            kramdown
 highlighter:         rouge
-permalink:           /blog/:title
+permalink:           /blog/:title/
 plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
-title:		           'Ritu Raj’s Blog'
-tagline:             'From Ideas to Execution'
-description:	       'At Ritu Raj’s Blog, we help you turn your ideas into reality. Whether you’re learning new skills, building projects, or exploring tech, our easy guides and tools are here to support your journey every step of the way.'
+title:		           'Ritu Raj Pratap Singh'
+tagline:             'Full-Stack Developer & Tech Writer'
+description:	       'Expert insights on web development, JavaScript, Node.js, and modern programming. Learn from practical tutorials and in-depth guides by Ritu Raj Pratap Singh.'
 author:              'Ritu Raj Pratap Singh'
+url:                 'https://theriturajps.github.io'
+baseurl:             ''
 
+# SEO Settings
+lang:                'en'
+timezone:            'Asia/Kolkata'
+
+# Social Media
 twitter:
   username: riturajps
+  card: summary_large_image
+
+# Facebook
+facebook:
+  app_id: 
+  publisher: 
+
+# LinkedIn
+linkedin:
+  username: iamriturajps
+
+# GitHub
+github:
+  username: theriturajps
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 # feed:
 #  path: rss-feed.xml
+
+# Performance optimizations
+sass:
+  style: compressed
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - LICENSE.md
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Ritu Raj Pratap Singh"
+      image: "/assets/img/default-post.webp"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
