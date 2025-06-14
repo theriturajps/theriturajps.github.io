@@ -2,214 +2,237 @@
 layout: default
 ---
 
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-text">Available for Consulting</span>
-                <div class="badge-pulse"></div>
-            </div>
-            <h1 class="hero-title">
-                <span class="title-line">Cybersecurity</span>
-                <span class="title-line title-accent">&amp; Development</span>
-                <span class="title-line">Expert</span>
-            </h1>
-            <p class="hero-description">
-                Specialized in secure API architecture, threat analysis, and scalable backend systems. 
-                Sharing insights on modern development practices and cybersecurity research.
-            </p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">{{ site.posts.size }}+</span>
-                    <span class="stat-label">Articles</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Years</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Projects</span>
-                </div>
-            </div>
-            <div class="hero-actions">
-                <a href="#featured-posts" class="btn btn-primary">
-                    <span>Latest Articles</span>
-                    <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                    </svg>
-                </a>
-                <a href="/about" class="btn btn-secondary">
-                    <span>About Me</span>
-                </a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="code-window">
-                <div class="window-header">
-                    <div class="window-controls">
-                        <span class="control close"></span>
-                        <span class="control minimize"></span>
-                        <span class="control maximize"></span>
-                    </div>
-                    <div class="window-title">security-audit.js</div>
-                </div>
-                <div class="window-content">
-                    <pre><code class="language-javascript">const securityAudit = {
-  vulnerabilities: [],
-  
-  async scanAPI(endpoint) {
-    const threats = await this.detectThreats(endpoint);
-    return this.generateReport(threats);
-  },
-  
-  detectThreats(target) {
-    // Advanced threat detection logic
-    return ['SQL Injection', 'XSS', 'CSRF'].filter(
-      threat => this.isVulnerable(target, threat)
-    );
-  }
-};</code></pre>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Search Bar -->
+<div class="search-container">
+  <div class="search-inner-container">
+    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+    <button id="search-clear" aria-label="Clear search">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
 
-<section id="featured-posts" class="posts-section">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-title-wrapper">
-                <h2 class="section-title">Latest Articles</h2>
-                <p class="section-subtitle">Expert insights on cybersecurity and development</p>
-            </div>
-            <div class="section-actions">
-                <div class="search-wrapper">
-                    <input type="text" id="search-input" placeholder="Search articles..." class="search-input">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="m21 21-4.35-4.35"/>
-                    </svg>
-                </div>
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All</button>
-                    <button class="filter-tab" data-filter="security">Security</button>
-                    <button class="filter-tab" data-filter="development">Development</button>
-                    <button class="filter-tab" data-filter="api">API</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="posts-grid" id="posts-grid">
-            {% for post in paginator.posts %}
-            <article class="post-card" data-category="{{ post.categories | join: ' ' | downcase }}" data-tags="{{ post.tags | join: ' ' | downcase }}">
-                <div class="post-image">
-                    {% if post.image %}
-                        <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
-                    {% else %}
-                        <div class="post-placeholder">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <circle cx="8.5" cy="8.5" r="1.5"/>
-                                <polyline points="21,15 16,10 5,21"/>
-                            </svg>
-                        </div>
-                    {% endif %}
-                    <div class="post-overlay">
-                        <div class="post-meta-top">
-                            {% if post.categories.size > 0 %}
-                                <span class="post-category">{{ post.categories | first }}</span>
-                            {% endif %}
-                            <span class="read-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">
-                            {{ post.date | date: "%b %d, %Y" }}
-                        </time>
-                        <div class="post-author">
-                            <img src="/assets/images/avatar.jpg" alt="Ritu Raj" class="author-avatar">
-                            <span class="author-name">Ritu Raj</span>
-                        </div>
-                    </div>
-                    <h3 class="post-title">
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    </h3>
-                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-                    <div class="post-footer">
-                        <div class="post-tags">
-                            {% for tag in post.tags limit: 2 %}
-                                <span class="tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        <a href="{{ post.url | relative_url }}" class="read-more">
-                            Read More
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
-        
-        {% if paginator.total_pages > 1 %}
-        <div class="pagination-wrapper">
-            <nav class="pagination" aria-label="Pagination">
-                {% if paginator.previous_page %}
-                    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn pagination-prev">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18L9 12L15 6"/>
-                        </svg>
-                        Previous
-                    </a>
-                {% endif %}
-                
-                <div class="pagination-numbers">
-                    {% for page_num in (1..paginator.total_pages) %}
-                        {% if page_num == paginator.page %}
-                            <span class="pagination-number active">{{ page_num }}</span>
-                        {% elsif page_num == 1 %}
-                            <a href="{{ '/' | relative_url }}" class="pagination-number">{{ page_num }}</a>
-                        {% else %}
-                            <a href="{{ site.paginate_path | replace: ':num', page_num | relative_url }}" class="pagination-number">{{ page_num }}</a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                {% if paginator.next_page %}
-                    <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn pagination-next">
-                        Next
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 18L15 12L9 6"/>
-                        </svg>
-                    </a>
-                {% endif %}
-            </nav>
-        </div>
+<div id="results-container"></div>
+
+<!-- Original Posts Content -->
+<div id="posts-wrapper">
+  {% for post in paginator.posts %}
+    <div class="posts-container">
+      <div class="compact-card">
+        {% if post.image %}
+          <div class="thumbnail-container">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
+          </div>
         {% endif %}
-    </div>
-</section>
-
-<section class="newsletter-section">
-    <div class="container">
-        <div class="newsletter-content">
-            <div class="newsletter-text">
-                <h3>Stay Updated</h3>
-                <p>Get the latest insights on cybersecurity and development delivered to your inbox.</p>
-            </div>
-            <form class="newsletter-form" action="#" method="post">
-                <input type="email" placeholder="Enter your email" class="newsletter-input" required>
-                <button type="submit" class="newsletter-btn">
-                    Subscribe
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 11L11 13"/>
-                    </svg>
-                </button>
-            </form>
+        <div class="post-content">
+          <h3 class="post-title">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+          </h3>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+          </div>
+          <div class="post-excerpt">
+            {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  {% endfor %}
+</div>
+
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a class="pagination-button pagination-active" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">{{ site.data.settings.pagination.next_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.next_page }}</span>
+  {% endif %}
+    <span class="pagination-button">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="pagination-button pagination-active next" href="{{ site.github.url }}{{ paginator.next_page_path }}">{{ site.data.settings.pagination.previous_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.previous_page }}</span>
+  {% endif %}
+</div>
+
+<!-- Search JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let postsData = [];
+  
+  const searchInput = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('results-container');
+  const postsWrapper = document.getElementById('posts-wrapper');
+  const clearButton = document.getElementById('search-clear');
+  
+  // Hide clear button initially
+  clearButton.style.display = 'none';
+  
+  // Load posts data from external JSON file
+  async function loadPostsData() {
+    try {
+      const response = await fetch('{{ site.github.url }}/articles.json');
+      if (!response.ok) {
+        throw new Error('Failed to load articles data');
+      }
+      postsData = await response.json();
+      
+      // Update placeholder with post count
+      const postCount = postsData.length;
+      searchInput.placeholder = `Search among ${postCount} posts...`;
+      
+      // Enable search input
+      searchInput.disabled = false;
+    } catch (error) {
+      console.error('Error loading posts data:', error);
+      searchInput.placeholder = 'Search unavailable';
+    }
+  }
+  
+  // Initialize data loading
+  searchInput.disabled = true;
+  searchInput.placeholder = 'Loading...';
+  loadPostsData();
+  
+  // Function to create post HTML
+  function createPostHTML(post) {
+    const imageHTML = post.image ? 
+      `<div class="thumbnail-container">
+         <a href="${post.url}" aria-label="Continue reading ${post.title}">
+           <img src="${post.image}" alt="${post.title}">
+         </a>
+       </div>` : '';
+    
+    return `
+      <div class="posts-container">
+        <div class="compact-card">
+          ${imageHTML}
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="${post.url}" aria-label="${post.title}">${post.title}</a>
+            </h3>
+            <div class="post-meta">
+              <i class="fa fa-calendar" aria-hidden="true"></i> ${post.date} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+            </div>
+            <div class="post-excerpt">
+              ${post.excerpt} <a href="${post.url}" aria-label="Continue reading ${post.title}" class="read-more">Continue reading</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Search function
+  function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    // Show/hide clear button based on search term
+    clearButton.style.display = searchTerm ? 'block' : 'none';
+    
+    // If search term is empty, show original posts and hide results
+    if (!searchTerm) {
+      postsWrapper.style.display = 'block';
+      resultsContainer.style.display = 'none';
+      resultsContainer.innerHTML = '';
+      return;
+    }
+    
+    // Hide original posts, show results container
+    postsWrapper.style.display = 'none';
+    resultsContainer.style.display = 'block';
+    resultsContainer.innerHTML = '';
+    
+    // Filter posts based on search term
+    const filteredPosts = postsData.filter(post => 
+      post.title.toLowerCase().includes(searchTerm) || 
+      post.excerpt.toLowerCase().includes(searchTerm)
+    );
+    
+    // Display results
+    if (filteredPosts.length > 0) {
+      filteredPosts.forEach(post => {
+        resultsContainer.innerHTML += createPostHTML(post);
+      });
+    } else {
+      resultsContainer.innerHTML = '<div class="no-results">No posts found matching your search.</div>';
+    }
+  }
+  
+  // Clear search function
+  function clearSearch() {
+    searchInput.value = '';
+    clearButton.style.display = 'none';
+    postsWrapper.style.display = 'block';
+    resultsContainer.style.display = 'none';
+    resultsContainer.innerHTML = '';
+  }
+  
+  // Event listeners
+  searchInput.addEventListener('input', performSearch);
+  clearButton.addEventListener('click', clearSearch);
+});
+</script>
+
+<!-- Add CSS for search styling -->
+<style>
+  .search-container {
+    position: relative;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .search-inner-container {
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  #search-input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+  }
+  
+  #search-input:focus {
+    outline: none;
+    border-color: #555;
+  }
+  
+  #search-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  #search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 5px;
+  }
+  
+  #search-clear:hover {
+    color: #333;
+  }
+  
+  #results-container {
+    display: none;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+  }
+</style>

@@ -1,84 +1,23 @@
-title: "Ritu Raj"
-tagline: "Cybersecurity & Software Development"
-email: contact@rituraj.dev
-description: >-
-  Expert insights on cybersecurity, software architecture, and modern development practices. 
-  Specializing in secure API development, threat analysis, and scalable backend systems.
-baseurl: ""
-url: "https://theriturajps.github.io"
-twitter_username: theriturajps
-github_username: theriturajps
-linkedin_username: theriturajps
+# Site Build Settings
+
+# jekyll-paginate configuration
+paginate:            10
 
 # Build settings
-markdown: kramdown
-highlighter: rouge
-permalink: /:year/:month/:day/:title/
-timezone: Asia/Kolkata
+markdown:            kramdown
+highlighter:         rouge
+permalink:           /blog/:title
+plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
 
-# Pagination
-paginate: 6
-paginate_path: "/page:num/"
+# Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
+title:		           'Ritu Raj’s Blog'
+tagline:             'From Ideas to Execution'
+description:	       'At Ritu Raj’s Blog, we help you turn your ideas into reality. Whether you’re learning new skills, building projects, or exploring tech, our easy guides and tools are here to support your journey every step of the way.'
+author:              'Ritu Raj Pratap Singh'
 
-# Collections
-collections:
-  projects:
-    output: true
-    permalink: /:collection/:name/
+twitter:
+  username: riturajps
 
-# Plugins
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-archives
-
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-    - tags
-    - year
-    - month
-  layout: archive
-  permalinks:
-    year: '/archive/:year/'
-    month: '/archive/:year/:month/'
-    category: '/category/:name/'
-    tag: '/tag/:name/'
-
-# SEO
-lang: en_US
-author:
-  name: Ritu Raj
-  email: contact@rituraj.dev
-  twitter: theriturajps
-  picture: /assets/images/profile.jpg
-
-# Social
-social:
-  name: Ritu Raj
-  links:
-    - https://twitter.com/theriturajps
-    - https://github.com/theriturajps
-    - https://linkedin.com/in/theriturajps
-
-# Analytics
-google_analytics: G-XXXXXXXXXX
-
-# Exclude from processing
-exclude:
-  - .sass-cache/
-  - .jekyll-cache/
-  - gemfiles/
-  - Gemfile
-  - Gemfile.lock
-  - node_modules/
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - README.md
-  - package.json
-  - package-lock.json
+# RSS 2.0 can be used instead of Atom by uncommenting following two lines
+# feed:
+#  path: rss-feed.xml

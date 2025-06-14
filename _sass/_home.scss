@@ -1,0 +1,122 @@
+/*
+  Posts - Compact Card Design
+*/
+
+.posts-container {
+  margin-bottom: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.compact-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.compact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.post-content {
+  padding: 0.8rem 1rem;
+}
+
+.post-title {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.post-title a {
+  text-decoration: none;
+  color: $dark-gray-color;
+}
+
+.post-title a:hover {
+  color: $link-color;
+}
+
+.post-meta {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  color: $light-gray-color;
+  font-family: $sans-serif-font-family;
+}
+
+.post-excerpt {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.read-more {
+  display: inline;
+  margin-left: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $link-color;
+  text-decoration: none;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+/*
+  Thumbnail
+*/
+
+.thumbnail-container {
+  max-width: 100%;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.thumbnail-container img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-container img:hover {
+  transform: scale(1.03);
+}
+
+/*
+  Pagination
+*/
+
+.pagination {
+  overflow: hidden;
+  font-family: $sans-serif-font-family;
+  text-align: center;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination-button {
+  color: $light-gray-color;
+  border: 1px solid $pagination-button-color;
+  padding: 5px 15px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 0.6rem;
+}
+
+.pagination-active {
+  color: $link-color;
+}
+
+.pagination-active:hover {
+  background-color: $pagination-button-color;
+}

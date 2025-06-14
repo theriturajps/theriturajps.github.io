@@ -2,26 +2,9 @@
 layout: default
 ---
 
-<div class="page-wrapper">
-    <header class="page-header">
-        <div class="container">
-            <div class="page-breadcrumb">
-                <a href="/" class="breadcrumb-link">Home</a>
-                <span class="breadcrumb-separator">/</span>
-                <span class="breadcrumb-current">{{ page.title }}</span>
-            </div>
-            <h1 class="page-title">{{ page.title }}</h1>
-            {% if page.description %}
-                <p class="page-description">{{ page.description }}</p>
-            {% endif %}
-        </div>
-    </header>
-    
-    <div class="page-content">
-        <div class="container">
-            <div class="prose">
-                {{ content }}
-            </div>
-        </div>
-    </div>
-</div>
+<h1>
+  {{ page.title }}
+</h1>
+<article>
+  {{ content }}
+</article>

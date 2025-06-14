@@ -2,53 +2,28 @@
 layout: default
 ---
 
-<div class="archive">
-    <header class="page-header">
-        <div class="container">
-            <h1 class="page-title">
-                {% if page.type == 'category' %}
-                    Category: {{ page.title }}
-                {% elsif page.type == 'tag' %}
-                    Tag: {{ page.title }}
-                {% elsif page.type == 'year' %}
-                    Archive: {{ page.date | date: "%Y" }}
-                {% elsif page.type == 'month' %}
-                    Archive: {{ page.date | date: "%B %Y" }}
-                {% else %}
-                    {{ page.title }}
-                {% endif %}
-            </h1>
-        </div>
-    </header>
+<h1>{{ page.title }}</h1>
+
+{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+<ul class="posts-container">
+  {% for year_group in posts_by_year %}
+    {% assign year = year_group.name %}
+    {% assign posts_count = year_group.items | size %}
     
-    <div class="archive-content">
-        <div class="container">
-            <div class="posts-grid">
-                {% for post in page.posts %}
-                <article class="post-card">
-                    <div class="post-image">
-                        {% if post.image %}
-                            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
-                        {% else %}
-                            <div class="post-placeholder">
-                                <svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                                </svg>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
-                        </div>
-                        <h3 class="post-title">
-                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                        </h3>
-                        <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
+    <h3 class="year-header">
+      {{ year }} <small class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</small>
+    </h3>
+    
+    {% for post in year_group.items %}
+      <li itemscope>
+        <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
+        <p class="post-date">
+          <span>
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date: "%B %-d" }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+          </span>
+        </p>
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>

@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}" class="no-js">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    {% seo %}
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ '/assets/css/main.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
-    
-    <script>
-        document.documentElement.classList.remove('no-js');
-        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-    </script>
-</head>
-<body>
-    <div class="site-wrapper">
-        {% include header.html %}
-        
-        <main class="main-content" role="main">
-            {{ content }}
-        </main>
-        
-        {% include footer.html %}
+<!doctype html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    <div class="container">
+      {% include header.html %}
+      <div class="content-container">
+        {{ content }}
+      </div>
+      {% include footer.html %}
     </div>
-    
-    <script src="{{ '/assets/js/main.js?v=' | append: site.github.build_revision | relative_url }}"></script>
-</body>
+  </body>
 </html>
