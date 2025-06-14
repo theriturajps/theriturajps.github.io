@@ -6,47 +6,27 @@ disqus:
 # If you are not using Google Analytics, please change 'googleTagAnalytics' to an empty string
 googleTagAnalytics: 'G-J9FME5LXG9'
 
-# Navigation menu
 menu:
-- {name: 'Home',     url: '/'}
-- {name: 'About',    url: '/about/'}
-- {name: 'Blog',     url: '/blog/'}
-- {name: 'Tags',     url: '/tags/'}
-- {name: 'Categories', url: '/categories/'}
-- {name: 'Archive',  url: '/archive/'}
-- {name: 'Contact',  url: '/contact/'}
+- {name: 'About',   url: 'page/about.html'}
+- {name: 'Writing', url: 'page/writing.html'}
+- {name: 'Contact', url: 'page/contact.html'}
 
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
 social:
-- {icon: 'github',     link: 'https://www.github.com/theriturajps', label: 'GitHub'}
-- {icon: 'twitter',    link: 'https://twitter.com/riturajps', label: 'Twitter'}
-- {icon: 'linkedin',   link: 'http://www.linkedin.com/in/iamriturajps/', label: 'LinkedIn'}
-- {icon: 'envelope',   link: 'mailto:iamriturajps@gmail.com', label: 'Email'}
-- {icon: 'rss',        link: '/feed.xml', label: 'RSS Feed'}
+- {icon: 'github',     link: 'https://www.github.com/theriturajps'}
+- {icon: 'twitter',    link: 'https://twitter.com/riturajps'}
+- {icon: 'linkedin',   link: 'http://www.linkedin.com/in/iamriturajps/'}
+- {icon: 'envelope',   link: 'mailto:iamriturajps@gmail.com'}
+- {icon: 'rss-square', link: '/feed.xml'}
+# - {icon: 'rss-square', link: '/rss-feed.xml'}
 
 # Customize site text
 pagination:
-  next_page: 'Newer Posts'
-  previous_page: 'Older Posts'
+  next_page: 'Newer'
+  previous_page: 'Older'
 
-sharing_button_prompt: 'Share this article'
-related_posts: 'Related Articles'
-post_date_prefix: 'Published on'
+sharing_button_prompt: 'Feel free to share!'
 
-# Site features
-features:
-  dark_mode: true
-  search: true
-  reading_time: true
-  post_navigation: true
-  related_posts: true
-  social_sharing: true
-  comments: false
+related_posts: 'You may also enjoy:'
 
-# SEO and Performance
-seo:
-  meta_description_length: 160
-  meta_title_length: 60
-  
-# Reading time calculation (words per minute)
-reading_speed: 200
+post_date_prefix: 'Written on'

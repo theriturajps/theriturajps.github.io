@@ -1,25 +1,23 @@
-{% assign related_posts = site.related_posts | limit: 3 %}
-{% if related_posts.size > 0 %}
-  <section class="related-posts">
-    <h3>{{ site.data.settings.related_posts }}</h3>
-    <div class="related-posts-grid">
-      {% for post in related_posts %}
-        <article class="related-post">
-          {% if post.image %}
-            <div class="related-post-image">
-              <a href="{{ site.baseurl }}{{ post.url }}">
-                <img src="{{ site.baseurl }}/assets/img/{{ post.image }}" 
-                     alt="{{ post.title }}" 
-                     loading="lazy">
+<div class="related">
+  <h1 >{{ site.data.settings.related_posts }}</h1>
+  {% assign listed_posts_urls = page.url | split: ' ' %}
+  <ul class="related-posts">
+    {% for tag in page.tags %}
+      {% for mypost in site.tags[tag] limit:3 %}
+        {% if listed_posts_urls contains mypost.url %}
+        {% else %}
+          <li>
+            <h2>
+              <a href="{{ site.github.url }}{{ mypost.url }}">
+                {{ mypost.title }}
+                <!--<img src="{{ site.url }}{{ site.baseurl }}/images/{{ mypost.image.teaser }}">-->
+                <!--<small>{{ mypost.date | date: "%B %-d, %Y" }}</small>-->
               </a>
-            </div>
-          {% endif %}
-          <div class="related-post-content">
-            <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
-            <time>{{ post.date | date: "%B %d, %Y" }}</time>
-          </div>
-        </article>
+            </h2>
+          </li>
+          {% assign listed_posts_urls = listed_posts_urls | push: mypost.url %}
+        {% endif %}
       {% endfor %}
-    </div>
-  </section>
-{% endif %}
+    {% endfor %}
+  </ul>
+</div>
