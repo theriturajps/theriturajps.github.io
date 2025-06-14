@@ -1,35 +1,96 @@
-<header class="header">
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="{{ '/' | relative_url }}" class="brand-link">
-                <span class="brand-text">{{ site.title }}</span>
-            </a>
+<header class="site-header" id="site-header">
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="{{ '/' | relative_url }}" class="brand-link">
+                    <div class="brand-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                            <path d="M2 17L12 22L22 17"/>
+                            <path d="M2 12L12 17L22 12"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-name">{{ site.title }}</span>
+                        <span class="brand-tagline">{{ site.tagline }}</span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
+                    <span>Home</span>
+                </a>
+                <a href="{{ '/about' | relative_url }}" class="nav-link {% if page.url == '/about/' %}active{% endif %}">
+                    <span>About</span>
+                </a>
+                <a href="{{ '/projects' | relative_url }}" class="nav-link {% if page.url == '/projects/' %}active{% endif %}">
+                    <span>Projects</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle">
+                        <span>Archive</span>
+                        <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 9L12 15L18 9"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="{{ '/categories' | relative_url }}" class="dropdown-link">Categories</a>
+                        <a href="{{ '/tags' | relative_url }}" class="dropdown-link">Tags</a>
+                        <a href="{{ '/archive' | relative_url }}" class="dropdown-link">All Posts</a>
+                    </div>
+                </div>
+                <a href="{{ '/contact' | relative_url }}" class="nav-link {% if page.url == '/contact/' %}active{% endif %}">
+                    <span>Contact</span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="search-toggle" id="search-toggle" aria-label="Toggle search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79Z"/>
+                    </svg>
+                </button>
+                
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+    
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="global-search" placeholder="Search articles, projects, and more..." class="search-input-global">
+                <button class="search-close" id="search-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 6L6 18M6 6L18 18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-results" id="search-results">
+                <div class="search-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <p>Start typing to search articles...</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="nav-menu" id="nav-menu">
-            <a href="{{ '/' | relative_url }}" class="nav-link">Home</a>
-            <a href="{{ '/about' | relative_url }}" class="nav-link">About</a>
-            <a href="{{ '/projects' | relative_url }}" class="nav-link">Projects</a>
-            <a href="{{ '/categories' | relative_url }}" class="nav-link">Categories</a>
-            <a href="{{ '/tags' | relative_url }}" class="nav-link">Tags</a>
-            <a href="{{ '/archive' | relative_url }}" class="nav-link">Archive</a>
-            <a href="{{ '/contact' | relative_url }}" class="nav-link">Contact</a>
-        </div>
-        
-        <div class="nav-actions">
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                <svg class="theme-icon theme-icon-dark" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 11 11.21 3 7 7 0 0021 12.79z"/>
-                </svg>
-                <svg class="theme-icon theme-icon-light" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-            </button>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-        </div>
-    </nav>
+    </div>
 </header>

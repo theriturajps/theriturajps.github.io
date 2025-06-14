@@ -1,284 +1,537 @@
-// Theme toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
+// Main JavaScript functionality
+(function() {
+    'use strict';
+    
+    // DOM elements
     const themeToggle = document.getElementById('theme-toggle');
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
-    const searchInput = document.getElementById('search-input');
-    const postsGrid = document.getElementById('posts-grid');
-
-    // Theme toggle
-    themeToggle.addEventListener('click', function() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchClose = document.getElementById('search-close');
+    const globalSearch = document.getElementById('global-search');
+    const searchResults = document.getElementById('search-results');
+    const siteHeader = document.getElementById('site-header');
+    
+    // Theme Management
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+    
+    function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         
-        // Add smooth transition effect
+        // Add transition effect
         document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
         setTimeout(() => {
             document.body.style.transition = '';
         }, 300);
-    });
-
-    // Mobile navigation toggle
-    navToggle.addEventListener('click', function() {
+    }
+    
+    // Navigation Management
+    function toggleNavigation() {
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Search functionality
-    if (searchInput && postsGrid) {
-        const posts = Array.from(postsGrid.querySelectorAll('.post-card'));
-        
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            
-            posts.forEach(post => {
-                const title = post.querySelector('.post-title a').textContent.toLowerCase();
-                const excerpt = post.querySelector('.post-excerpt').textContent.toLowerCase();
-                const tags = post.getAttribute('data-tags') ? post.getAttribute('data-tags').toLowerCase() : '';
-                const category = post.getAttribute('data-category') ? post.getAttribute('data-category').toLowerCase() : '';
-                
-                const searchContent = `${title} ${excerpt} ${tags} ${category}`;
-                
-                if (searchContent.includes(searchTerm) || searchTerm === '') {
-                    post.style.display = 'block';
-                    post.style.animation = 'fadeInUp 0.5s ease';
-                } else {
-                    post.style.display = 'none';
-                }
-            });
-            
-            // Show "No results" message if no posts are visible
-            const visiblePosts = posts.filter(post => post.style.display !== 'none');
-            const existingMessage = postsGrid.querySelector('.no-results');
-            
-            if (visiblePosts.length === 0 && searchTerm !== '') {
-                if (!existingMessage) {
-                    const noResultsMessage = document.createElement('div');
-                    noResultsMessage.className = 'no-results';
-                    noResultsMessage.innerHTML = `
-                        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                            <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted); margin-bottom: 1rem;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">No posts found</h3>
-                            <p style="color: var(--text-muted);">Try adjusting your search terms or browse all posts.</p>
-                        </div>
-                    `;
-                    postsGrid.appendChild(noResultsMessage);
-                }
-            } else if (existingMessage) {
-                existingMessage.remove();
-            }
-        });
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Header scroll effect
-    let lastScrollTop = 0;
-    const header = document.querySelector('.header');
     
-    window.addEventListener('scroll', function() {
+    function closeNavigation() {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    // Search Management
+    function openSearch() {
+        searchOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => globalSearch.focus(), 100);
+    }
+    
+    function closeSearch() {
+        searchOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        globalSearch.value = '';
+        searchResults.innerHTML = '<div class="search-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p>Start typing to search articles...</p></div>';
+    }
+    
+    // Header Scroll Effect
+    let lastScrollTop = 0;
+    function handleScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop > lastScrollTop && scrollTop > 100) {
             // Scrolling down
-            header.style.transform = 'translateY(-100%)';
+            siteHeader.style.transform = 'translateY(-100%)';
         } else {
             // Scrolling up
-            header.style.transform = 'translateY(0)';
+            siteHeader.style.transform = 'translateY(0)';
         }
         
         lastScrollTop = scrollTop;
-    });
-
-    // Intersection Observer for animation
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+    }
+    
+    // Search functionality
+    function performSearch(query) {
+        if (!query.trim()) {
+            searchResults.innerHTML = '<div class="search-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p>Start typing to search articles...</p></div>';
+            return;
+        }
+        
+        // Simulate search results (in a real implementation, this would query your posts)
+        const mockResults = [
+            {
+                title: 'Building Scalable RESTful APIs',
+                excerpt: 'A comprehensive guide to creating well-designed, scalable RESTful APIs...',
+                url: '/2024/01/05/building-restful-apis/',
+                category: 'Development'
+            },
+            {
+                title: 'Essential Security Practices for Node.js',
+                excerpt: 'Security practices every Node.js developer should understand...',
+                url: '/2024/01/10/securing-nodejs-applications/',
+                category: 'Security'
             }
+        ];
+        
+        const filteredResults = mockResults.filter(result => 
+            result.title.toLowerCase().includes(query.toLowerCase()) ||
+            result.excerpt.toLowerCase().includes(query.toLowerCase())
+        );
+        
+        if (filteredResults.length === 0) {
+            searchResults.innerHTML = '<div class="search-no-results"><p>No results found for "' + query + '"</p></div>';
+            return;
+        }
+        
+        const resultsHTML = filteredResults.map(result => `
+            <div class="search-result">
+                <div class="search-result-category">${result.category}</div>
+                <h3 class="search-result-title"><a href="${result.url}">${result.title}</a></h3>
+                <p class="search-result-excerpt">${result.excerpt}</p>
+            </div>
+        `).join('');
+        
+        searchResults.innerHTML = '<div class="search-results-list">' + resultsHTML + '</div>';
+    }
+    
+    // Filter functionality for posts
+    function initPostFilters() {
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const postCards = document.querySelectorAll('.post-card');
+        const searchInput = document.getElementById('search-input');
+        
+        if (!filterTabs.length || !postCards.length) return;
+        
+        // Filter by category
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                
+                // Update active tab
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter posts
+                postCards.forEach(card => {
+                    const category = card.dataset.category || '';
+                    const tags = card.dataset.tags || '';
+                    const searchContent = category + ' ' + tags;
+                    
+                    if (filter === 'all' || searchContent.includes(filter)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
         });
-    }, observerOptions);
-
-    // Observe all post cards and sections
-    const animatedElements = document.querySelectorAll('.post-card, .section-header, .hero-content');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        observer.observe(el);
-    });
-
-    // Copy to clipboard functionality for code blocks
-    const codeBlocks = document.querySelectorAll('pre code');
-    codeBlocks.forEach(block => {
-        const pre = block.parentElement;
-        const button = document.createElement('button');
-        button.className = 'copy-button';
-        button.innerHTML = `
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        
+        // Search functionality
+        if (searchInput) {
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const query = this.value.toLowerCase().trim();
+                    
+                    postCards.forEach(card => {
+                        const title = card.querySelector('.post-title a').textContent.toLowerCase();
+                        const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
+                        const category = card.dataset.category || '';
+                        const tags = card.dataset.tags || '';
+                        const searchContent = title + ' ' + excerpt + ' ' + category + ' ' + tags;
+                        
+                        if (!query || searchContent.includes(query)) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.5s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show no results message
+                    const visiblePosts = Array.from(postCards).filter(card => card.style.display !== 'none');
+                    const postsGrid = document.getElementById('posts-grid');
+                    let noResultsMsg = postsGrid.querySelector('.no-results-message');
+                    
+                    if (visiblePosts.length === 0 && query) {
+                        if (!noResultsMsg) {
+                            noResultsMsg = document.createElement('div');
+                            noResultsMsg.className = 'no-results-message';
+                            noResultsMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-secondary);';
+                            noResultsMsg.innerHTML = `
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color: var(--text-tertiary); margin-bottom: 1rem;">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                                <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">No articles found</h3>
+                                <p>Try adjusting your search terms or browse all articles.</p>
+                            `;
+                            postsGrid.appendChild(noResultsMsg);
+                        }
+                    } else if (noResultsMsg) {
+                        noResultsMsg.remove();
+                    }
+                }, 300);
+            });
+        }
+    }
+    
+    // Table of Contents
+    function generateTableOfContents() {
+        const tocNav = document.querySelector('.toc-nav');
+        const headings = document.querySelectorAll('.prose h2, .prose h3, .prose h4');
+        
+        if (!tocNav || !headings.length) return;
+        
+        const tocList = document.createElement('ul');
+        let currentLevel = 2;
+        let currentList = tocList;
+        const listStack = [tocList];
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            const text = heading.textContent;
+            
+            if (!heading.id) {
+                heading.id = id;
+            }
+            
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `#${id}`;
+            link.textContent = text;
+            listItem.appendChild(link);
+            
+            if (level > currentLevel) {
+                const newList = document.createElement('ul');
+                const lastItem = currentList.lastElementChild;
+                if (lastItem) {
+                    lastItem.appendChild(newList);
+                }
+                listStack.push(newList);
+                currentList = newList;
+            } else if (level < currentLevel) {
+                while (listStack.length > 1 && level < currentLevel) {
+                    listStack.pop();
+                    currentLevel--;
+                }
+                currentList = listStack[listStack.length - 1];
+            }
+            
+            currentList.appendChild(listItem);
+            currentLevel = level;
+        });
+        
+        tocNav.appendChild(tocList);
+        
+        // Highlight current section
+        const tocLinks = tocNav.querySelectorAll('a');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = tocNav.querySelector(`a[href="#${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, { rootMargin: '-20% 0px -80% 0px' });
+        
+        headings.forEach(heading => observer.observe(heading));
+    }
+    
+    // Copy to clipboard functionality
+    function initCopyToClipboard() {
+        window.copyToClipboard = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback
+                const button = event.target.closest('.share-btn');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12"/></svg>';
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        };
+    }
+    
+    // Smooth scrolling for anchor links
+    function initSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = siteHeader.offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // Intersection Observer for animations
+    function initAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        const animatedElements = document.querySelectorAll('.post-card, .hero-content, .section-title-wrapper');
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            observer.observe(el);
+        });
+    }
+    
+    // Back to top button
+    function initBackToTop() {
+        const backToTopButton = document.createElement('button');
+        backToTopButton.className = 'back-to-top';
+        backToTopButton.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M18 15L12 9L6 15"/>
             </svg>
         `;
+        backToTopButton.style.cssText = `
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        `;
         
-        button.addEventListener('click', async function() {
-            try {
-                await navigator.clipboard.writeText(block.textContent);
-                button.innerHTML = `
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                `;
-                setTimeout(() => {
-                    button.innerHTML = `
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                    `;
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        document.body.appendChild(backToTopButton);
+        
+        // Show/hide based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.opacity = '1';
+                backToTopButton.style.visibility = 'visible';
+            } else {
+                backToTopButton.style.opacity = '0';
+                backToTopButton.style.visibility = 'hidden';
             }
         });
         
-        pre.style.position = 'relative';
-        pre.appendChild(button);
-    });
-
-    // Reading progress indicator
-    const progressBar = document.createElement('div');
-    progressBar.className = 'reading-progress';
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: var(--primary-color);
-        z-index: 1001;
-        transition: width 0.3s ease;
-    `;
-    document.body.appendChild(progressBar);
-
-    window.addEventListener('scroll', function() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        progressBar.style.width = scrolled + '%';
-    });
-
-    // Back to top button
-    const backToTopButton = document.createElement('button');
-    backToTopButton.className = 'back-to-top';
-    backToTopButton.innerHTML = `
-        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-    `;
-    backToTopButton.style.cssText = `
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-    
-    backToTopButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        // Hover effect
+        backToTopButton.addEventListener('mouseenter', () => {
+            backToTopButton.style.transform = 'translateY(-2px)';
+            backToTopButton.style.boxShadow = 'var(--shadow-xl)';
         });
-    });
+        
+        backToTopButton.addEventListener('mouseleave', () => {
+            backToTopButton.style.transform = 'translateY(0)';
+            backToTopButton.style.boxShadow = 'var(--shadow-lg)';
+        });
+    }
     
-    document.body.appendChild(backToTopButton);
+    // Reading progress indicator
+    function initReadingProgress() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'reading-progress';
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--color-primary);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        `;
+        document.body.appendChild(progressBar);
+        
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+    }
     
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopButton.style.opacity = '1';
-            backToTopButton.style.visibility = 'visible';
-        } else {
-            backToTopButton.style.opacity = '0';
-            backToTopButton.style.visibility = 'hidden';
+    // Event Listeners
+    function initEventListeners() {
+        // Theme toggle
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
         }
-    });
-});
-
-// Additional styles for copy button and back to top
-const additionalStyles = document.createElement('style');
-additionalStyles.textContent = `
-    .copy-button {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: var(--card-background);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 0.5rem;
-        cursor: pointer;
-        color: var(--text-primary);
-        transition: all 0.3s ease;
-        opacity: 0.7;
-    }
-    
-    .copy-button:hover {
-        opacity: 1;
-        background: var(--primary-color);
-        color: white;
-    }
-    
-    .back-to-top:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-    }
-    
-    @media (max-width: 768px) {
-        .back-to-top {
-            bottom: 1rem;
-            right: 1rem;
-            width: 45px;
-            height: 45px;
+        
+        // Navigation toggle
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', toggleNavigation);
+            
+            // Close navigation when clicking on links
+            navMenu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', closeNavigation);
+            });
         }
+        
+        // Search functionality
+        if (searchToggle && searchOverlay) {
+            searchToggle.addEventListener('click', openSearch);
+        }
+        
+        if (searchClose) {
+            searchClose.addEventListener('click', closeSearch);
+        }
+        
+        if (searchOverlay) {
+            searchOverlay.addEventListener('click', (e) => {
+                if (e.target === searchOverlay) {
+                    closeSearch();
+                }
+            });
+        }
+        
+        if (globalSearch) {
+            let searchTimeout;
+            globalSearch.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    performSearch(e.target.value);
+                }, 300);
+            });
+        }
+        
+        // Dropdown menus
+        document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            if (toggle && menu) {
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    menu.style.opacity = menu.style.opacity === '1' ? '0' : '1';
+                    menu.style.visibility = menu.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+            }
+        });
+        
+        // Scroll events
+        window.addEventListener('scroll', handleScroll);
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Escape key closes search and navigation
+            if (e.key === 'Escape') {
+                closeSearch();
+                closeNavigation();
+            }
+            
+            // Ctrl/Cmd + K opens search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openSearch();
+            }
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                });
+            }
+        });
     }
-`;
-document.head.appendChild(additionalStyles);
+    
+    // Initialize everything when DOM is loaded
+    function init() {
+        initTheme();
+        initEventListeners();
+        initPostFilters();
+        generateTableOfContents();
+        initCopyToClipboard();
+        initSmoothScrolling();
+        initAnimations();
+        initBackToTop();
+        initReadingProgress();
+        
+        // Remove no-js class
+        document.documentElement.classList.remove('no-js');
+        
+        console.log('🚀 Blog initialized successfully!');
+    }
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    
+})();

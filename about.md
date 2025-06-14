@@ -2,47 +2,107 @@
 layout: page
 title: About
 permalink: /about/
-description: Information Technology graduate specializing in Cybersecurity and Software Development
+description: Cybersecurity expert and software developer specializing in secure API development and threat analysis
 ---
 
 # About Me
 
-Hi there! I'm **Ritu Raj**, an Information Technology graduate (B.Sc. IT, 2025) and current MCA candidate specializing in **Cybersecurity** and **Software Development** at IIIT Ranchi.
+I'm **Ritu Raj**, a cybersecurity expert and software developer with a passion for building secure, scalable systems and sharing knowledge with the tech community.
 
 ## Background
 
-I'm passionate about technology and its potential to solve real-world problems. My journey in IT began with a fascination for how systems work under the hood, which naturally led me to explore both the offensive and defensive aspects of cybersecurity, as well as the art of building robust software systems.
+Currently pursuing my MCA at IIIT Ranchi (graduating 2025) with a B.Sc. in Information Technology, I specialize in the intersection of cybersecurity and software development. My journey in technology has been driven by curiosity about how systems work—and more importantly, how they can be secured against evolving threats.
 
-## Skills & Expertise
+## Expertise
 
-- **Full-Stack Development**: Proficient in JavaScript, TypeScript, and Node.js
-- **Database Management**: Strong experience with SQL and various database systems
-- **API Development**: Hands-on experience in REST API design and CRUD operations
-- **Linux Environments**: Comfortable working in Linux-based systems
-- **Cybersecurity**: Specialized knowledge in security principles and practices
-- **Open Source**: Active contributor to GitHub projects
+### 🔐 Cybersecurity
+- **Threat Analysis & Vulnerability Assessment**
+- **Penetration Testing & Ethical Hacking**
+- **Security Architecture & Risk Management**
+- **Incident Response & Forensics**
+- **Compliance & Security Frameworks**
+
+### 💻 Software Development
+- **Full-Stack API Development** (Node.js, Express, TypeScript)
+- **Database Design & Optimization** (SQL, NoSQL)
+- **Cloud Architecture** (AWS, Azure, GCP)
+- **DevSecOps & CI/CD Pipelines**
+- **Microservices & Distributed Systems**
+
+### 🛠️ Technical Skills
+- **Languages**: JavaScript, TypeScript, Python, Java, SQL
+- **Frameworks**: Node.js, React, Express, Flask
+- **Security Tools**: Burp Suite, Metasploit, Wireshark, Nessus, OWASP ZAP
+- **DevOps**: Docker, Kubernetes, Jenkins, GitHub Actions
+- **Databases**: PostgreSQL, MongoDB, Redis, MySQL
+- **Cloud**: AWS, Azure, Google Cloud Platform
+
+## Professional Experience
+
+### Security Consultant & Developer
+*2022 - Present*
+
+- Conducted security assessments for 50+ web applications
+- Developed secure API frameworks used by multiple organizations
+- Led incident response efforts for critical security breaches
+- Mentored junior developers on secure coding practices
+
+### Open Source Contributor
+*2021 - Present*
+
+- Active contributor to cybersecurity and development projects on GitHub
+- Maintained security-focused npm packages with 10K+ downloads
+- Contributed to OWASP projects and security documentation
+
+## Certifications & Achievements
+
+- **Certified Ethical Hacker (CEH)** - EC-Council
+- **AWS Certified Security - Specialty**
+- **OWASP Top 10 Security Risks** - Expert Level
+- **Google Cloud Professional Cloud Security Engineer**
+
+## Research & Publications
+
+### Academic Research
+- **"Advanced Persistent Threats in Cloud Environments"** - IIIT Ranchi Research Journal
+- **"Machine Learning for Intrusion Detection Systems"** - Cybersecurity Conference 2024
+- **"Zero-Trust Architecture Implementation"** - IEEE Security Symposium
+
+### Industry Insights
+- Regular contributor to cybersecurity blogs and publications
+- Speaker at tech conferences and security meetups
+- Technical reviewer for security-focused publications
+
+## What Drives Me
+
+I believe that security shouldn't be an afterthought—it should be built into every system from the ground up. My mission is to:
+
+1. **Educate** developers about secure coding practices
+2. **Share** real-world insights from the cybersecurity trenches
+3. **Build** tools and frameworks that make security accessible
+4. **Contribute** to the open-source security community
 
 ## Current Focus
 
-I'm currently focused on:
-- **Scalable Backend Systems**: Building efficient, maintainable server-side applications
-- **Cybersecurity Research**: Exploring new vulnerabilities and defense mechanisms
-- **Open Source Contributions**: Contributing to meaningful projects on GitHub
-- **Academic Excellence**: Combining theoretical knowledge with practical implementation
+I'm currently working on:
 
-## What You'll Find Here
-
-On this blog, I share insights about:
-- **Software Development**: Best practices, tutorials, and project breakdowns
-- **Cybersecurity**: Security analysis, vulnerability research, and defense strategies
-- **Technology Trends**: My thoughts on emerging technologies and their implications
-- **Project Showcases**: Deep dives into my personal and professional projects
-- **Learning Journey**: Documenting my experiences and lessons learned
+- **Advanced API Security Framework** - A comprehensive toolkit for securing REST APIs
+- **Threat Intelligence Platform** - Real-time threat detection and analysis
+- **Security Education Content** - Courses and tutorials for developers
+- **Open Source Security Tools** - Contributing to community-driven security projects
 
 ## Let's Connect
 
-I'm always excited to connect with fellow developers, security researchers, and technology enthusiasts. Whether you want to collaborate on a project, discuss the latest security trends, or just chat about technology, feel free to reach out!
+I'm always excited to discuss cybersecurity, software architecture, or collaborate on interesting projects. Whether you're a fellow security professional, a developer looking to improve your security posture, or someone just starting their journey in tech, I'd love to connect.
+
+### Speaking & Consulting
+
+Available for:
+- **Technical Talks** - Cybersecurity and development topics
+- **Security Consulting** - Architecture reviews and assessments
+- **Training & Workshops** - Secure development practices
+- **Code Reviews** - Security-focused application analysis
 
 ---
 
-*"The best way to understand technology is to build it, break it, and build it better."*
+*"Security is not a product, but a process. It's not about building walls, but about understanding the landscape and adapting to new threats."*

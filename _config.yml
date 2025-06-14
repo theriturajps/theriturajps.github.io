@@ -1,21 +1,23 @@
-title: "Ritu Raj's Blog"
-email: your-email@example.com
+title: "Ritu Raj"
+tagline: "Cybersecurity & Software Development"
+email: contact@rituraj.dev
 description: >-
-  Information Technology graduate and MCA candidate specializing in Cybersecurity 
-  and Software Development. Sharing insights on full-stack development, 
-  cybersecurity, and open-source contributions.
+  Expert insights on cybersecurity, software architecture, and modern development practices. 
+  Specializing in secure API development, threat analysis, and scalable backend systems.
 baseurl: ""
 url: "https://theriturajps.github.io"
-twitter_username: your_username
+twitter_username: theriturajps
 github_username: theriturajps
+linkedin_username: theriturajps
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
 permalink: /:year/:month/:day/:title/
+timezone: Asia/Kolkata
 
 # Pagination
-paginate: 9
+paginate: 6
 paginate_path: "/page:num/"
 
 # Collections
@@ -50,8 +52,20 @@ jekyll-archives:
 lang: en_US
 author:
   name: Ritu Raj
-  email: your-email@example.com
-  twitter: your_username
+  email: contact@rituraj.dev
+  twitter: theriturajps
+  picture: /assets/images/profile.jpg
+
+# Social
+social:
+  name: Ritu Raj
+  links:
+    - https://twitter.com/theriturajps
+    - https://github.com/theriturajps
+    - https://linkedin.com/in/theriturajps
+
+# Analytics
+google_analytics: G-XXXXXXXXXX
 
 # Exclude from processing
 exclude:
@@ -66,3 +80,5 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
+  - package.json
+  - package-lock.json
