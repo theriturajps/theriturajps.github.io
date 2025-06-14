@@ -1,7 +1,35 @@
 <header class="header">
-  <h3 class="header-title">
-    <a href="{{ site.github.url }}/">{{ site.title }}</a>
-    <small class="header-subtitle">{{ site.tagline }}</small>
-    {% include menu.html %}
-  </h3>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="{{ '/' | relative_url }}" class="brand-link">
+                <span class="brand-text">{{ site.title }}</span>
+            </a>
+        </div>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="{{ '/' | relative_url }}" class="nav-link">Home</a>
+            <a href="{{ '/about' | relative_url }}" class="nav-link">About</a>
+            <a href="{{ '/projects' | relative_url }}" class="nav-link">Projects</a>
+            <a href="{{ '/categories' | relative_url }}" class="nav-link">Categories</a>
+            <a href="{{ '/tags' | relative_url }}" class="nav-link">Tags</a>
+            <a href="{{ '/archive' | relative_url }}" class="nav-link">Archive</a>
+            <a href="{{ '/contact' | relative_url }}" class="nav-link">Contact</a>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="theme-icon theme-icon-dark" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 11 11.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+                <svg class="theme-icon theme-icon-light" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+            </button>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
 </header>

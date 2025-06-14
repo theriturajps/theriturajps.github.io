@@ -2,26 +2,50 @@
 layout: default
 ---
 
-<h1>
-  {{ page.title }}
-</h1>
-{% if page.image %}
-  <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
-{% endif %}
-<article>
-  {{ content }}
+<article class="post">
+    <header class="post-header">
+        <div class="container">
+            <div class="post-meta">
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                {% if page.categories.size > 0 %}
+                    <span class="post-category">{{ page.categories | first }}</span>
+                {% endif %}
+                <span class="read-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+            </div>
+            <h1 class="post-title">{{ page.title }}</h1>
+            {% if page.tags.size > 0 %}
+                <div class="post-tags">
+                    {% for tag in page.tags %}
+                        <a href="{{ '/tag/' | append: tag | relative_url }}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <div class="container">
+            {{ content }}
+        </div>
+    </div>
+    
+    <footer class="post-footer">
+        <div class="container">
+            <div class="post-navigation">
+                {% if page.previous %}
+                    <a href="{{ page.previous.url | relative_url }}" class="nav-link nav-prev">
+                        <span class="nav-label">Previous Post</span>
+                        <span class="nav-title">{{ page.previous.title }}</span>
+                    </a>
+                {% endif %}
+                
+                {% if page.next %}
+                    <a href="{{ page.next.url | relative_url }}" class="nav-link nav-next">
+                        <span class="nav-label">Next Post</span>
+                        <span class="nav-title">{{ page.next.title }}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </footer>
 </article>
-{% if site.hide_post_date != true %}
-  {% include post-date.html %}
-{% endif %}
-{% if site.hide_post_share != true %}
-  {% include social-sharing.html %}
-{% endif %}
-{% if site.hide_related_posts != true %}
-  {% include related-posts.html %}
-{% endif %}
-{% if site.data.settings.disqus.comments %}
-  {% include disqus.html %}
-{% endif %}
-
-{% include copy-clipboard.html %}

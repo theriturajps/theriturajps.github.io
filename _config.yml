@@ -1,23 +1,68 @@
-# Site Build Settings
-
-# jekyll-paginate configuration
-paginate:            10
+title: "Ritu Raj's Blog"
+email: your-email@example.com
+description: >-
+  Information Technology graduate and MCA candidate specializing in Cybersecurity 
+  and Software Development. Sharing insights on full-stack development, 
+  cybersecurity, and open-source contributions.
+baseurl: ""
+url: "https://theriturajps.github.io"
+twitter_username: your_username
+github_username: theriturajps
 
 # Build settings
-markdown:            kramdown
-highlighter:         rouge
-permalink:           /blog/:title
-plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
 
-# Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
-title:		           'Ritu Raj’s Blog'
-tagline:             'From Ideas to Execution'
-description:	       'At Ritu Raj’s Blog, we help you turn your ideas into reality. Whether you’re learning new skills, building projects, or exploring tech, our easy guides and tools are here to support your journey every step of the way.'
-author:              'Ritu Raj Pratap Singh'
+# Pagination
+paginate: 9
+paginate_path: "/page:num/"
 
-twitter:
-  username: riturajps
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name/
 
-# RSS 2.0 can be used instead of Atom by uncommenting following two lines
-# feed:
-#  path: rss-feed.xml
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-archives
+
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+    - year
+    - month
+  layout: archive
+  permalinks:
+    year: '/archive/:year/'
+    month: '/archive/:year/:month/'
+    category: '/category/:name/'
+    tag: '/tag/:name/'
+
+# SEO
+lang: en_US
+author:
+  name: Ritu Raj
+  email: your-email@example.com
+  twitter: your_username
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
