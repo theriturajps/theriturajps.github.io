@@ -1,5 +1,7 @@
 # Site Build Settings
 
+url: "https://me.letnote.in"
+
 # jekyll-paginate configuration
 paginate:            10
 
