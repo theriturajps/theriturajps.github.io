@@ -49,6 +49,10 @@ roles:
 # "verified" key is optional but indicates verified icon
 # if "url" key is not provided, then the external link icon won't appear
 connections:
+  linkedin:
+    username: "iamriturajps"
+    url: "https://www.linkedin.com/in/iamriturajps"
+    verified: true
   github:
     username: "theriturajps"
     url: "https://github.com/theriturajps"
