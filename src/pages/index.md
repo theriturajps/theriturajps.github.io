@@ -11,8 +11,7 @@ banner: "https://i.imgur.com/5w5nSKK.gif"
 
 
 # User avatar to display, can be external link or a path to an image from public folder
-avatar: "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"
-
+avatar: "https://cdn5.telesco.pe/file/mfTMGkiJd97VXk3J9_XtuedSQ-VsCK4Z3tT68ZC-lAbITp9aClF5QOUE3rzg2NgRfS7Zq4GcgNWavVkBVda2HAlodd1MGdTAFgBCdvDdFuXmyxKQtRPfYQGPBRFtQdjKUQuP4k7OjC9aJP2HQ4855FQFpJKEIClIc8KJuK0m29sqiH4LCn_l4yuENp2VjjZQnZgifGFB_XMNywasDDej-S7-WiTTbd_lK6eXFiKhVrVec7Ol1-rdhlgMNTHgeWPwW0pBY-Lo6SbcF8xCMwmKYFr4wFwyAm5HN14Mcuv8075k8L6YhLsFCh5MF0Qg5XdJ3289VfmrlvhKicVEusJxkg.jpg"
 
 # Discord custom nickname set above
 displayName: "Ritu Raj Pratap Singh"
