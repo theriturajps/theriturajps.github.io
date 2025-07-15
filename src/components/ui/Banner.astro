@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+
+/** A union of either color or image banner */
+const { href, color } = Astro.props;
+---
+
+<div class="upper">
+  {
+    href ? (
+      <Image
+        class:list={["image", "banner"]}
+        src={href}
+        width={600}
+        height={212}
+        alt="banner"
+      />
+    ) : (
+      <div class:list={["color", "banner"]} style={`background-color: ${color}`} />
+    )
+  }
+</div>
+
+<style>
+  .upper {
+    box-sizing: border-box;
+  }
+
+  .banner {
+    margin: calc(-1 * var(--space-md-16));
+    margin-bottom: var(--space-md-16);
+    max-width: calc(100% + var(--space-lg-32));
+    aspect-ratio: 150 / 53;
+  }
+
+  .color {
+    width: calc(100% + var(--space-lg-32));
+    aspect-ratio: 300 / 53;
+    height: 6.625rem;
+  }
+
+  .image {
+    height: 13.25rem;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 31.25rem) {
+    .image {
+      height: 10.625rem;
+    }
+  }
+    
+  @media screen and (max-width: 25.625rem) {
+    .image {
+      height: 8.75rem;
+    }
+  }
+</style>

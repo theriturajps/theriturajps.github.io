@@ -1,0 +1,21 @@
+---
+import Flex from "../utility/Flex.astro";
+
+/** Main card component where contents start from */
+---
+
+<Flex class="card">
+	<slot />
+</Flex>
+<style>
+	.card {
+		flex-direction: column;
+		max-width: 37.5rem;
+		overflow: hidden;
+		margin: 2% auto;
+		padding: var(--space-md-16);
+		border-radius: var(--rounding-sm-8);
+		background-color: var(--card);
+		color: var(--white);
+	}
+</style>

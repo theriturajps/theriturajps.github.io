@@ -1,0 +1,43 @@
+---
+/** Custom Discord scrollbar for contents */
+---
+
+<div class="scrollbar">
+  <div class="offset">
+    <slot />
+  </div>
+</div>
+<style>
+  .scrollbar {
+    overflow: hidden auto;
+    max-height: 19.25rem;
+    padding: var(--space-md-16) 0;
+    width: calc(100% + var(--space-md-12));
+    scrollbar-width: thin;
+    scrollbar-color: var(--divider) transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: var(--divider);
+    background-clip: padding-box;
+    border: var(--space-xs-2) solid transparent;
+    border-radius: var(--rounding-xs-4);
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar:hover {
+    scrollbar-color: hsl(225, 7.1%, 11%) transparent;
+  }
+
+  .offset {
+    margin-right: var(--space-md-12);
+  }
+</style>

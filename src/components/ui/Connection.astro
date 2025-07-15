@@ -1,0 +1,54 @@
+---
+import Link from "../icons/Link.astro";
+import Flex from "../utility/Flex.astro";
+import Tooltip from "./Tooltip.astro";
+import Verified from "../icons/Verified.astro";
+
+/** Connection container component */
+const { type, username, url, verified = false } = Astro.props;
+
+/** Labels for tooltips of each connection type */
+const tooltipLabels = {
+  "reddit": "Reddit",
+  "twitter": "Twitter",
+  "facebook": "Facebook",
+  "github": "GitHub",
+  "instagram": "Instagram",
+  "youtube": "YouTube",
+  "telegram": "Telegram",
+  "doller": "Donate Doller",
+  "donate": "Donate",
+  "rupee": "Donate Rupee",
+}
+---
+
+<Flex align="center" justify="space-between" class="connection">
+  <Flex align="center" gap={8}>
+    <Tooltip label={tooltipLabels[type]}>
+      <img
+        src={`/connections/${type}.svg`}
+        alt={`Connection - ${type}`}
+        width={24}
+        height={24}
+        class="icon"
+      />
+    </Tooltip>
+    <Flex align="center" gap={4}>
+      <span class="username">{username}</span>
+      {verified && <Verified />}
+    </Flex>
+  </Flex>
+  {url && <Link href={url} />}
+</Flex>
+<style>
+  .connection {
+    padding: var(--space-md-12) var(--space-sm-8);
+    border-radius: var(--rounding-xs-4);
+    border: 0.0625rem solid var(--divider);
+  }
+
+  .username {
+    font-size: var(--font-md-16);
+    font-weight: 600;
+  }
+</style>

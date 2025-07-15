@@ -1,0 +1,16 @@
+---
+/** Content container dark box with rounded borders */
+---
+
+<div class="card">
+  <slot />
+</div>
+<style>
+  .card {
+    max-height: 24.0625rem;
+    padding: var(--space-md-12) var(--space-md-12) 0;
+    background-color: var(--content);
+    border-radius: var(--rounding-sm-8);
+    overflow: hidden;
+  }
+</style>

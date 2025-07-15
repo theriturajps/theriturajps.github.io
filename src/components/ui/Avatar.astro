@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+
+// Remove width, height & children from the origin component props,
+// instead pass size prop
+/** Rounded image with a set size using astro's image optimization component */
+const { size, class: additionalClass, ...props } = Astro.props;
+---
+
+<Image
+  class:list={["avatar", additionalClass]}
+  alt="Avatar"
+  width={size}
+  height={size}
+  {...props}
+/>
+<style>
+  .avatar {
+    border-radius: var(--rounding-circle);
+    border: 0.5625rem solid var(--card);
+    aspect-ratio: 1;
+  }
+</style>

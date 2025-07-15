@@ -1,0 +1,7 @@
+---
+/** Space component to add unused space */
+const { space } = Astro.props;
+const spaceValue = `${space / 16}rem`;
+---
+
+<div class="space" style={`height: ${spaceValue}`}></div>

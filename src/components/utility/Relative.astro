@@ -1,0 +1,13 @@
+---
+/** "position: relative;" shorthand component */
+const { class: additionalClass, ...props } = Astro.props;
+---
+
+<div class:list={["relative", additionalClass]} {...props}>
+  <slot />
+</div>
+<style>
+  .relative {
+    position: relative;
+  }
+</style>

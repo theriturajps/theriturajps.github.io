@@ -1,0 +1,27 @@
+---
+import Badge from "../ui/Badge.astro";
+
+/** Box with badges */
+const { badges, class: additionalClass, ...props } = Astro.props;
+---
+
+<div class:list={["badge-wrapper", additionalClass]} {...props}>
+  {
+    Object.keys(badges).map((key) => (
+      <Badge
+        type={key}
+        metadata={badges[key]?.date ?? badges[key]?.username}
+      />
+    ))
+  }
+</div>
+<style>
+  .badge-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: var(--rounding-sm-8);
+    background-color: var(--content);
+    padding: var(--space-xs-2) var(--space-sm-4);
+    gap: var(--space-xs-2);
+  }
+</style>

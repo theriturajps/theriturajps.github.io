@@ -1,0 +1,121 @@
+---
+/**
+ * Custom waterfall background initially used in classic profile card
+ * @author {@link https://codepen.io/mohaiman Mohammad Abdul Mohaiman}
+ */
+---
+
+<ul class="background">
+  {/* 8 li elements */}
+  {[...Array(8).keys()].map((index) => <li id={index.toString()} />)}
+</ul>
+<style>
+  @keyframes waterfall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 0;
+    }
+
+    100% {
+      transform: translateY(-62.5rem) rotate(720deg);
+      opacity: 0;
+      border-radius: 50%;
+    }
+  }
+
+  .background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background: var(--waterfall);
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .background li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: rgba(255, 255, 255, 0.2);
+    animation: waterfall 21s linear infinite;
+  }
+
+  .background li:nth-child(1) {
+    left: 48%;
+    width: 8.875rem;
+    height: 8.875rem;
+    bottom: -8.875rem;
+    animation-delay: 1s;
+  }
+
+  .background li:nth-child(2) {
+    left: 78%;
+    width: 11.125rem;
+    height: 11.125rem;
+    bottom: -11.125rem;
+    animation-delay: 1s;
+  }
+
+  .background li:nth-child(3) {
+    left: 73%;
+    width: 10.5625rem;
+    height: 10.5625rem;
+    bottom: -10.5625rem;
+    animation-delay: 3s;
+  }
+
+  .background li:nth-child(4) {
+    left: 30%;
+    width: 11.9375rem;
+    height: 11.9375rem;
+    bottom: -11.9375rem;
+    animation-delay: 4s;
+  }
+
+  .background li:nth-child(5) {
+    left: 83%;
+    width: 11.625rem;
+    height: 11.625rem;
+    bottom: -11.625rem;
+    animation-delay: 5s;
+  }
+
+  .background li:nth-child(6) {
+    left: 29%;
+    width: 10.4375rem;
+    height: 10.4375rem;
+    bottom: -10.4375rem;
+    animation-delay: 21s;
+  }
+
+  .background li:nth-child(7) {
+    left: 20%;
+    width: 8.3125rem;
+    height: 8.3125rem;
+    bottom: -8.3125rem;
+    animation-delay: 9s;
+  }
+
+  .background li:nth-child(8) {
+    left: 29%;
+    width: 7.75rem;
+    height: 7.75rem;
+    bottom: -7.75rem;
+    animation-delay: 24s;
+  }
+
+  .background li:nth-child(9) {
+    left: 2%;
+    width: 8.5rem;
+    height: 8.5rem;
+    bottom: -8.5rem;
+    animation-delay: 11s;
+  }
+</style>

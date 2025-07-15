@@ -1,0 +1,30 @@
+---
+import Flex from "../utility/Flex.astro";
+
+/** Role box component with custom color */
+const { color } = Astro.props;
+---
+
+<Flex align="center" class="role">
+  <div class="color" style={`background-color: ${color}`}></div>
+  <span><slot /></span>
+</Flex>
+<style>
+  .role {
+    width: max-content;
+    padding: var(--space-sm-4) var(--space-sm-8);
+    font-size: var(--font-sm-12);
+    font-weight: 500;
+    text-align: center;
+    border-radius: var(--rounding-xs-4);
+    background-color: var(--role);
+  }
+
+  .color {
+    width: 0.75rem;
+    height: 0.75rem;
+    aspect-ratio: 1 / 1;
+    margin-right: var(--space-sm-4);
+    border-radius: var(--rounding-circle);
+  }
+</style>

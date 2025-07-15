@@ -1,0 +1,64 @@
+---
+/** Custom tooltip component similar to Discord's */
+const { label, class: additionalClass, ...props } = Astro.props;
+---
+
+<div class:list={["tooltip-wrapper", additionalClass]} {...props}>
+  <div class="tooltip-content">
+    <div class="tooltip" role="tooltip">
+      {label}
+    </div>
+    <div class="arrow"></div>
+  </div>
+  <slot />
+</div>
+<style>
+  .tooltip-wrapper {
+    display: flex;
+    position: relative;
+    width: max-content;
+  }
+
+  .tooltip-wrapper .tooltip-content {
+    pointer-events: none;
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(.9) translate(-55%, -110%);
+    transition: transform .1s, opacity .05s ease-in;
+    opacity: 0;
+  }
+
+  .tooltip-wrapper:hover .tooltip-content {
+    transform: scale(1) translate(-50%, -100%);
+    opacity: 1;
+    transition: transform .1s, opacity .05s ease-in;
+  }
+
+  .tooltip {
+    width: max-content;
+    max-width: 11.875rem;
+    padding: var(--space-sm-8) var(--space-md-12);
+    /* I don't know why discord has 5 px rounding */
+    /* Yet they got no system for it */
+    border-radius: 0.3125rem;
+    background-color: var(--content);
+    color: var(--dimmed);
+    box-shadow: hsla(0, 0%, 0%, 0.2) 0 0.5rem 1rem 0;
+    /* Font mismatch */
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: var(--font-md-16);
+  }
+
+  .arrow {
+    border: 0.3125rem solid transparent;
+    border-top-color: var(--content);
+    margin-top: -0.0625rem;
+    width: 0;
+    height: 0;
+  }
+</style>

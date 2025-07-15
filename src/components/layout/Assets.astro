@@ -1,0 +1,41 @@
+---
+import Avatar from "../ui/Avatar.astro";
+import Status from "../ui/Status.astro";
+import Flex from "../utility/Flex.astro";
+import Relative from "../utility/Relative.astro";
+import Badges from "./Badges.astro";
+
+/* Levitating assets for upper information */
+const { avatar, status, badges } = Astro.props;
+---
+
+<Relative class="stick">
+  <Avatar size={138} src={avatar} class="levitate" />
+  <Flex justify="flex-end" align="flex-end" class="status levitate">
+    <Status type={status} />
+  </Flex>
+  <Badges badges={badges} class="badges" />
+</Relative>
+<style>
+  .stick {
+    margin-top: calc(-1 * var(--space-md-16));
+  }
+
+  .levitate {
+    position: absolute;
+    top: -4.6875rem;
+  }
+  
+  .status {
+    width: 8.625rem;
+    height: 8.625rem;
+    aspect-ratio: 1 / 1;
+    padding: 0.5625rem;
+  }
+
+  .badges {
+    position: absolute;
+    top: 1rem;
+    left: 9.25rem;
+  }
+</style>

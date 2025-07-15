@@ -1,0 +1,15 @@
+---
+/** Divider component from Discord */
+const { top, bottom } = Astro.props;
+const topValue = top ? `${top / 16}rem` : '0.75rem';
+const bottomValue = bottom ? `${bottom / 16}rem` : '0.75rem';
+---
+
+<hr class="divider" style={`margin-top: ${topValue}; margin-bottom: ${bottomValue};`} />
+<style>
+  .divider {
+    background-color: var(--divider);
+    border: none;
+    height: var(--space-xs-1);
+  }
+</style>

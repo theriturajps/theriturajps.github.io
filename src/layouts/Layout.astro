@@ -1,0 +1,145 @@
+---
+// Global non-weight-scoped import only includes font-weight 400
+import "@fontsource/open-sans/400.css";
+// Weight for badges & tooltips
+import "@fontsource/open-sans/500.css";
+// Weight for username, tag & connection username
+import "@fontsource/open-sans/600.css";
+// Weight for section labels
+import "@fontsource/open-sans/700.css";
+
+import "../styles/theme/colors.css";
+import "../styles/theme/font.css";
+import "../styles/theme/rounding.css";
+import "../styles/theme/space.css";
+
+import Header from "../components/layout/Header.astro";
+import Background from "../components/layout/Background.astro";
+import Card from "../components/layout/Card.astro";
+import Scrollbar from "../components/layout/Scrollbar.astro";
+
+import Divider from "../components/ui/Divider.astro";
+import Content from "../components/ui/Content.astro";
+import Section from "../components/ui/Section.astro";
+import Role from "../components/ui/Role.astro";
+import Grid from "../components/ui/Grid.astro";
+import Connection from "../components/ui/Connection.astro";
+import Info from "../components/ui/Info.astro";
+
+import Flex from "../components/utility/Flex.astro";
+import Favicon from "../components/layout/Favicon.astro";
+import Meta from "../components/layout/Meta.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <Meta title={frontmatter.displayName} />
+    <Favicon />
+    <title>{frontmatter.displayName}</title>
+  </head>
+  <body>
+    <Card>
+      <Header
+        bannerType={frontmatter.bannerType}
+        banner={frontmatter.banner}
+        avatar={frontmatter.avatar}
+        status={frontmatter.status}
+        badges={frontmatter.badges}
+      />
+      <Content>
+        <Info nickname={frontmatter.displayName} username={frontmatter.username} />
+        <Divider top={16} bottom={0} />
+        <Scrollbar>
+          <Section label="About Me">
+            <main class="normalize">
+              <slot />
+            </main>
+          </Section>
+          <Section label="Roles">
+            <Flex wrap="wrap" gap={4}>
+              {
+                Object.keys(frontmatter.roles).map((role) => (
+                  <Role color={frontmatter.roles[role]}>{role}</Role>
+                ))
+              }
+            </Flex>
+          </Section>
+          <Divider top={0} />
+          <Grid>
+            {
+              Object.keys(frontmatter.connections).map((connection) => (
+                <Connection
+                  type={connection}
+                  username={frontmatter.connections[connection].username}
+                  url={frontmatter.connections[connection].url}
+                  verified={frontmatter.connections[connection].verified}
+                />
+              ))
+            }
+          </Grid>
+          <Divider top={0} />
+        </Scrollbar>
+      </Content>
+    </Card>
+    <Background />
+  </body>
+</html>
+<style is:global>
+  * {
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: "Open Sans", sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--waterfall) 80%, white) var(--waterfall);
+  }
+
+  html::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--waterfall) 80%, white);
+    background-clip: padding-box;
+    border: var(--space-xs-2) solid transparent;
+    border-radius: var(--rounding-xs-4);
+  }
+
+  html::-webkit-scrollbar-track {
+    background: var(--waterfall);
+  }
+
+  /* Content styling */
+  .normalize {
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md-12);
+  }
+
+  .normalize p {
+    margin: 0;
+  }
+
+  .normalize a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .normalize a:hover {
+    text-decoration: underline;
+  }
+
+  .mb-2{
+    margin-bottom: 5rem;
+  }
+</style>

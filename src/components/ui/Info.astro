@@ -1,0 +1,31 @@
+---
+/** Information component with username & nickname right above the scrollbar */
+const { username, nickname } = Astro.props;
+---
+
+<div class="info">
+  <div class="nickname">
+    {nickname}
+  </div>
+  <div class="username">
+    {username}
+  </div>
+</div>
+<style>
+  .info {
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+
+  .nickname {
+    color: var(--dimmed);
+    font-size: var(--font-md-20);
+    /* Same with discord's select styling */
+    user-select: none;
+  }
+
+  .username {
+    color: var(--dark);
+    font-size: var(--font-sm-14);
+  }
+</style>

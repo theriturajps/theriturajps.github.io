@@ -1,0 +1,14 @@
+---
+/** "display: flex;" shorthand component */
+const { justify, align, wrap, gap, class: additionalClass, ...props } = Astro.props;
+const gapValue = gap ? `${gap / 16}rem` : '0';
+---
+
+<div class="flex" class:list={["flex", additionalClass]} style={`justify-content: ${justify}; align-items: ${align}; flex-wrap: ${wrap}; gap: ${gapValue};`} {...props}>
+  <slot />
+</div>
+<style>
+  .flex {
+    display: flex;
+  }
+</style>

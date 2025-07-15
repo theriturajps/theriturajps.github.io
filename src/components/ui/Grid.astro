@@ -1,0 +1,22 @@
+---
+// May go into layout component folder but I don't think I have to make one responsive for every use case
+/** 2 column grid for connections, turns into 1 collumn for <=560 pixels */
+---
+
+<div class="grid">
+  <slot />
+</div>
+<style>
+  .grid {
+    display: grid;
+    /* 2 Columns */
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md-16);
+  }
+
+  @media screen and (max-width: 35rem) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+:root {
+  /* Complete space system taken from Discord web */
+  --space-xs-1: 0.0625rem;
+  --space-xs-2: 0.125rem;
+  --space-sm-4: 0.25rem;
+  --space-sm-8: 0.5rem;
+  --space-md-12: 0.75rem;
+  --space-md-16: 1rem;
+  --space-md-24: 1.5rem;
+  --space-lg-32: 2rem;
+  --space-lg-40: 2.5rem;
+  --space-lg-48: 3rem;
+  --space-xl-56: 3.5rem;
+  --space-xl-64: 4rem;
+  --space-xl-72: 4.5rem;
+  --space-xl-80: 5rem;
+  --space-xl-96: 6rem;
+}
