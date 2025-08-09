@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /
+
+# Allow only the main blog homepage
+Allow: /$
+
+Allow: /blog/
+Allow: /page/
+
+Sitemap: https://letnote.in/sitemap.xml

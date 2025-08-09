@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+<ul class="posts-container">
+  {% for year_group in posts_by_year %}
+    {% assign year = year_group.name %}
+    {% assign posts_count = year_group.items | size %}
+    
+    <h3 class="year-header">
+      {{ year }} <small class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</small>
+    </h3>
+    
+    {% for post in year_group.items %}
+      <li itemscope>
+        <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
+        <p class="post-date">
+          <span>
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date: "%B %-d" }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+          </span>
+        </p>
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>

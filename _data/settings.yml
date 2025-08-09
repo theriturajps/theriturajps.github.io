@@ -1,0 +1,32 @@
+# Change 'comments' to true for Disqus comments
+disqus:
+  comments: false
+  disqus_shortname: ''
+
+# If you are not using Google Analytics, please change 'googleTagAnalytics' to an empty string
+googleTagAnalytics: 'G-J9FME5LXG9'
+
+menu:
+- {name: 'About',   url: 'page/about.html'}
+- {name: 'Writing', url: 'page/writing.html'}
+- {name: 'Contact', url: 'page/contact.html'}
+
+# Available social icons are powered by Font Awesome, so you can use any icon that they offer
+social:
+- {icon: 'github',     link: 'https://www.github.com/theriturajps'}
+- {icon: 'twitter',    link: 'https://twitter.com/riturajps'}
+- {icon: 'linkedin',   link: 'http://www.linkedin.com/in/iamriturajps/'}
+- {icon: 'envelope',   link: 'mailto:letnote.in@gmail.com'}
+- {icon: 'rss-square', link: '/feed.xml'}
+- {icon: 'rss', link: '/rss-feed.xml'}
+
+# Customize site text
+pagination:
+  next_page: 'Newer'
+  previous_page: 'Older'
+
+sharing_button_prompt: 'Feel free to share!'
+
+related_posts: 'You may also enjoy:'
+
+post_date_prefix: 'Written on'

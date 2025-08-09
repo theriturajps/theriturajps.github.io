@@ -1,0 +1,76 @@
+/*
+  Post
+*/
+
+article {
+  font-size: 1rem;  // Ensures article text uses the base size
+  
+  p, li, td {
+    font-size: 1rem;  // Explicitly set these elements
+    line-height: 1.6; // Better line spacing for readability
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+}
+
+article a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+article a:hover {
+  color: #005fa3;
+  border-bottom: 1px solid #005fa3;
+  text-decoration: none;
+}
+
+article a:focus {
+  outline: 2px dashed #0077cc;
+  outline-offset: 2px;
+}
+
+.post-date {
+  display: block;
+  margin-top:3px;
+  margin-bottom: 1rem;
+  color: $light-gray-color;
+  font-family: $sans-serif-font-family;
+  font-size:0.8rem;
+}
+
+@media (max-width: $elements-responsive-width) {
+  .posts h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.related {
+  padding-bottom: 2rem;
+}
+
+.related h1 {
+  font-size: 1.5rem;
+}
+
+.related-posts {
+  padding-left: 0px;
+  list-style: none;
+}
+
+.related-posts a {
+  text-decoration: none;
+  font-size: 1.1rem;
+}
