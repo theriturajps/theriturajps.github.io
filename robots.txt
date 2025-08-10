@@ -1,9 +1,6 @@
 User-agent: *
-Disallow: /
 
-# Allow only the main blog homepage
-Allow: /$
-
+Allow: /
 Allow: /blog/
 Allow: /page/
 
