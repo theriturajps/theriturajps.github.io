@@ -4,4 +4,4 @@ Allow: /
 Allow: /blog/
 Allow: /page/
 
-Sitemap: https://letnote.in/sitemap.xml
+Sitemap: https://www.letnote.in/sitemap.xml
