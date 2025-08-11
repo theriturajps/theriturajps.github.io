@@ -2,28 +2,55 @@
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="page-subtitle">All posts organized by year</p>
+  </header>
 
-{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-
-<ul class="posts-container">
-  {% for year_group in posts_by_year %}
-    {% assign year = year_group.name %}
-    {% assign posts_count = year_group.items | size %}
-    
-    <h3 class="year-header">
-      {{ year }} <small class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</small>
-    </h3>
-    
-    {% for post in year_group.items %}
-      <li itemscope>
-        <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
-        <p class="post-date">
-          <span>
-            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date: "%B %-d" }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
-          </span>
-        </p>
-      </li>
+  {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  
+  <div class="archive-container">
+    {% for year_group in posts_by_year %}
+      {% assign year = year_group.name %}
+      {% assign posts_count = year_group.items | size %}
+      
+      <section class="year-section">
+        <h2 class="year-header">
+          {{ year }} 
+          <span class="post-count">({{ posts_count }} post{% if posts_count != 1 %}s{% endif %})</span>
+        </h2>
+        
+        <div class="posts-list">
+          {% for post in year_group.items %}
+            <article class="archive-post">
+              <div class="archive-post-date">
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                  {{ post.date | date: "%b %d" }}
+                </time>
+              </div>
+              <div class="archive-post-content">
+                <h3 class="archive-post-title">
+                  <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </h3>
+                <div class="archive-post-meta">
+                  <span class="read-time">
+                    <i class="far fa-clock" aria-hidden="true"></i>
+                    {% include read-time.html %}
+                  </span>
+                  {% if post.categories.size > 0 %}
+                    <div class="archive-post-categories">
+                      {% for category in post.categories limit:2 %}
+                        <span class="category-tag small">{{ category }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
     {% endfor %}
-  {% endfor %}
-</ul>
+  </div>
+</div>

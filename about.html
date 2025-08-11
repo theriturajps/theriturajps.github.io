@@ -1,0 +1,55 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
+<div class="about-content">
+  <div class="about-intro">
+    <h2>Hello, I'm Ritu Raj Pratap Singh</h2>
+    <p class="lead">A passionate backend developer and technology enthusiast currently pursuing MCA after completing B.Sc. IT (2025).</p>
+  </div>
+
+  <div class="skills-section">
+    <h3>Technical Expertise</h3>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h4>Backend Development</h4>
+        <ul>
+          <li>REST and CRUD APIs</li>
+          <li>Node.js & Express.js</li>
+          <li>JavaScript & Python</li>
+          <li>Database Design</li>
+        </ul>
+      </div>
+      
+      <div class="skill-category">
+        <h4>Technologies</h4>
+        <ul>
+          <li>Linux & Windows</li>
+          <li>Microsoft Excel</li>
+          <li>Web Development</li>
+          <li>API Integration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-section">
+    <h3>Mission</h3>
+    <p>I'm passionate about building efficient and scalable backend solutions. Through LetNote, I share comprehensive tutorials on backend technologies, helping developers master Node.js, JWT authentication, APIs, and more. I also keep the community informed about important Indian government schemes and education news.</p>
+  </div>
+
+  <div class="contact-section">
+    <h3>Let's Connect</h3>
+    <p>Have questions or want to collaborate? Feel free to reach out!</p>
+    <div class="social-links">
+      {% for item in site.data.settings.social %}
+        <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fab fa-{{ item.icon }}" aria-hidden="true"></i>
+          <span>{{ item.icon | capitalize }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

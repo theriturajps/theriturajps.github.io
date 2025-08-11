@@ -1,13 +1,14 @@
 ---
 layout: default
+title: All Posts
+permalink: /posts/
 ---
 
 <div class="container">
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1 class="hero-title">{{ site.title }}</h1>
-    <p class="hero-subtitle">{{ site.tagline }}</p>
-  </section>
+  <header class="page-header">
+    <h1 class="page-title">All Posts</h1>
+    <p class="page-subtitle">{{ site.posts.size }} posts and counting</p>
+  </header>
 
   <!-- Search Bar -->
   <div class="search-container">
@@ -22,25 +23,24 @@ layout: default
   <!-- Search Results -->
   <div id="results-container" class="search-results"></div>
 
-  <!-- Posts Grid -->
+  <!-- All Posts Grid -->
   <div id="posts-wrapper" class="posts-wrapper">
     <div class="posts-grid">
-      {% for post in paginator.posts %}
-        <article class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
+      {% for post in site.posts %}
+        <article class="post-card">
           {% if post.image %}
             <div class="post-image">
-              <a href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">
+              <a href="{{ post.url | relative_url }}">
                 <img src="{{ '/assets/img/' | append: post.image | relative_url }}" 
                      alt="{{ post.title }}" 
-                     loading="lazy"
-                     itemprop="image">
+                     loading="lazy">
               </a>
             </div>
           {% endif %}
           
           <div class="post-content">
             <div class="post-meta">
-              <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+              <time datetime="{{ post.date | date_to_xmlschema }}">
                 <i class="far fa-calendar" aria-hidden="true"></i>
                 {{ post.date | date: "%b %d, %Y" }}
               </time>
@@ -50,11 +50,11 @@ layout: default
               </span>
             </div>
             
-            <h2 class="post-title" itemprop="headline">
-              <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
+            <h2 class="post-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
             </h2>
             
-            <div class="post-excerpt" itemprop="description">
+            <div class="post-excerpt">
               {{ post.content | strip_html | truncate: 120 }}
             </div>
             
@@ -68,7 +68,7 @@ layout: default
               </div>
             {% endif %}
             
-            <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full post: {{ post.title }}">
+            <a href="{{ post.url | relative_url }}" class="read-more">
               Read More <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -76,29 +76,6 @@ layout: default
       {% endfor %}
     </div>
   </div>
-
-  <!-- Pagination -->
-  {% if paginator.total_pages > 1 %}
-    <nav class="pagination" aria-label="Posts pagination">
-      {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn pagination-prev">
-          <i class="fas fa-chevron-left" aria-hidden="true"></i>
-          {{ site.data.settings.pagination.next_page }}
-        </a>
-      {% endif %}
-      
-      <span class="pagination-info">
-        Page {{ paginator.page }} of {{ paginator.total_pages }}
-      </span>
-      
-      {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn pagination-next">
-          {{ site.data.settings.pagination.previous_page }}
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-      {% endif %}
-    </nav>
-  {% endif %}
 </div>
 
 <!-- Search functionality -->
@@ -112,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   clearButton.style.display = 'none';
   
-  // Load posts data
   async function loadPostsData() {
     try {
       const response = await fetch('{{ "/articles.json" | relative_url }}');

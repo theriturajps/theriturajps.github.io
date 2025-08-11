@@ -1,0 +1,49 @@
+---
+layout: default
+title: Categories
+permalink: /categories/
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">Categories</h1>
+    <p class="page-subtitle">Browse posts by category</p>
+  </header>
+
+  {% assign categories = site.categories | sort %}
+  
+  <div class="categories-grid">
+    {% for category in categories %}
+      {% assign category_name = category[0] %}
+      {% assign posts = category[1] %}
+      
+      <div class="category-card">
+        <h2 class="category-title">
+          <a href="{{ '/category/' | append: category_name | slugify | relative_url }}">
+            {{ category_name }}
+          </a>
+        </h2>
+        <p class="category-count">{{ posts.size }} post{% if posts.size != 1 %}s{% endif %}</p>
+        
+        <div class="category-posts">
+          {% for post in posts limit:3 %}
+            <article class="category-post">
+              <h3 class="category-post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h3>
+              <time class="category-post-date" datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%b %d, %Y" }}
+              </time>
+            </article>
+          {% endfor %}
+          
+          {% if posts.size > 3 %}
+            <a href="{{ '/category/' | append: category_name | slugify | relative_url }}" class="view-all">
+              View all {{ posts.size }} posts <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
