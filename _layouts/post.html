@@ -2,114 +2,26 @@
 layout: default
 ---
 
-<article class="post container" itemscope itemtype="https://schema.org/BlogPosting">
-  <header class="post-header">
-    <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
-    
-    <div class="post-meta">
-      <div class="post-date">
-        <i class="far fa-calendar" aria-hidden="true"></i>
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-          {{ page.date | date: "%B %d, %Y" }}
-        </time>
-        {% if page.author %}
-          <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-            by <span itemprop="name">{{ page.author }}</span>
-          </span>
-        {% endif %}
-      </div>
-      
-      <div class="post-reading-time">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        {% include read-time.html %}
-      </div>
-    </div>
-    
-    {% if page.categories.size > 0 %}
-      <div class="post-categories">
-        {% for category in page.categories %}
-          <a href="{{ '/category/' | append: category | slugify | relative_url }}" class="category-tag">
-            {{ category }}
-          </a>
-        {% endfor %}
-      </div>
-    {% endif %}
-    
-    {% if page.image %}
-      <div class="post-image">
-        <img src="{{ '/assets/img/' | append: page.image | relative_url }}" 
-             alt="{{ page.title }}" 
-             itemprop="image">
-      </div>
-    {% endif %}
-  </header>
-  
-  <div class="post-content" itemprop="articleBody">
-    {{ content }}
-  </div>
-  
-  <footer class="post-footer">
-    {% if site.data.settings.sharing_button_prompt %}
-      <div class="post-sharing">
-        <p class="sharing-prompt">{{ site.data.settings.sharing_button_prompt }}</p>
-        <div class="sharing-buttons">
-          <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ page.url }}" 
-             target="_blank" rel="noopener noreferrer" class="share-btn twitter" aria-label="Share on Twitter">
-            <i class="fab fa-twitter" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" 
-             target="_blank" rel="noopener noreferrer" class="share-btn facebook" aria-label="Share on Facebook">
-            <i class="fab fa-facebook-f" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" 
-             target="_blank" rel="noopener noreferrer" class="share-btn linkedin" aria-label="Share on LinkedIn">
-            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-          </a>
-          <a href="https://api.whatsapp.com/send?text={{ page.title | uri_escape }}%20{{ site.url }}{{ page.url }}" 
-             target="_blank" rel="noopener noreferrer" class="share-btn whatsapp" aria-label="Share on WhatsApp">
-            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-          </a>
-          <a href="mailto:?subject={{ page.title | uri_escape }}&body=Check out this post: {{ site.url }}{{ page.url }}" 
-             class="share-btn email" aria-label="Share via Email">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-    {% endif %}
-    
-    {% if site.data.settings.related_posts %}
-      {% include related-posts.html %}
-    {% endif %}
-  </footer>
+<h1>
+  {{ page.title }}
+</h1>
+{% if page.image %}
+  <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
+{% endif %}
+<article>
+  {{ content }}
 </article>
+{% if site.hide_post_date != true %}
+  {% include post-date.html %}
+{% endif %}
+{% if site.hide_post_share != true %}
+  {% include social-sharing.html %}
+{% endif %}
+{% if site.hide_related_posts != true %}
+  {% include related-posts.html %}
+{% endif %}
+{% if site.data.settings.disqus.comments %}
+  {% include disqus.html %}
+{% endif %}
 
 {% include copy-clipboard.html %}
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "{{ page.title }}",
-  "description": "{{ page.excerpt | default: page.content | strip_html | truncate: 160 }}",
-  "image": "{{ site.url }}{{ '/assets/img/' | append: page.image | relative_url }}",
-  "author": {
-    "@type": "Person",
-    "name": "{{ page.author | default: site.author }}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "{{ site.title }}",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{ site.url }}/assets/img/logo.png"
-    }
-  },
-  "datePublished": "{{ page.date | date_to_xmlschema }}",
-  "dateModified": "{{ page.date | date_to_xmlschema }}",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ site.url }}{{ page.url }}"
-  }
-}
-</script>

@@ -1,82 +1,27 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  
-  <!-- DNS prefetch for performance -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  
-  <!-- Critical CSS inline -->
-  <style>
-    /* Critical above-the-fold styles */
-    body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#e5e5e5;line-height:1.6}
-    .container{max-width:1200px;margin:0 auto;padding:0 1rem}
-    .header{background:#111;border-bottom:1px solid #333}
-    .navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-    .logo{font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
-    .nav-menu{display:flex;list-style:none;margin:0;padding:0;gap:2rem}
-    .nav-menu a{color:#ccc;text-decoration:none;transition:color 0.3s}
-    .nav-menu a:hover{color:#fff}
-    @media (max-width:768px){.nav-menu{display:none}}
-  </style>
-  
-  <!-- SEO Meta Tags -->
-  {% seo %}
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-  
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  
-  <!-- Fonts with display swap for performance -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
-  <!-- RSS Feed -->
+  <!-- Use Jekyll SEO plugin -->
+    {% seo %}
+  <link rel="stylesheet" href="{{ site.github.url }}/assets/css/main.css">
+  <link rel="stylesheet" href="{{ site.github.url }}/assets/css/syntax.css">
+  <!-- Use Atom -->
   {% feed_meta %}
-  <link href="{{ '/rss-feed.xml' | relative_url }}" type="application/rss+xml" rel="alternate" title="{{ site.title }} RSS Feed">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "{{ site.title }}",
-    "description": "{{ site.description }}",
-    "url": "{{ site.url }}",
-    "author": {
-      "@type": "Person",
-      "name": "{{ site.author }}"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "{{ site.author }}"
-    }
-  }
+
+  <!-- Use RSS-2.0 -->
+  <link href="{{ site.github.url }}/rss-feed.xml" type="application/rss+xml" rel="alternate" title="{{ site.title }} | {{ site.tagline }}"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    });
   </script>
-  
   <!-- Google Analytics -->
-  {% if site.data.settings.googleTagAnalytics %}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.settings.googleTagAnalytics }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ site.data.settings.googleTagAnalytics }}', {
-        page_title: '{{ page.title | default: site.title }}',
-        page_location: '{{ site.url }}{{ page.url }}'
-      });
-    </script>
-  {% endif %}
+  {% include google-analytics.html %}
 </head>

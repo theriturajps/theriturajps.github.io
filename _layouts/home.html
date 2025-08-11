@@ -2,123 +2,86 @@
 layout: default
 ---
 
-<div class="container">
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1 class="hero-title">{{ site.title }}</h1>
-    <p class="hero-subtitle">{{ site.tagline }}</p>
-  </section>
-
-  <!-- Search Bar -->
-  <div class="search-container">
-    <div class="search-wrapper">
-      <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
-      <button id="search-clear" aria-label="Clear search">
-        <i class="fas fa-times" aria-hidden="true"></i>
-      </button>
-    </div>
+<!-- Search Bar -->
+<div class="search-container">
+  <div class="search-inner-container">
+    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+    <button id="search-clear" aria-label="Clear search">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
   </div>
+</div>
 
-  <!-- Search Results -->
-  <div id="results-container" class="search-results"></div>
+<div id="results-container"></div>
 
-  <!-- Posts Grid -->
-  <div id="posts-wrapper" class="posts-wrapper">
-    <div class="posts-grid">
-      {% for post in paginator.posts %}
-        <article class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-          {% if post.image %}
-            <div class="post-image">
-              <a href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">
-                <img src="{{ '/assets/img/' | append: post.image | relative_url }}" 
-                     alt="{{ post.title }}" 
-                     loading="lazy"
-                     itemprop="image">
-              </a>
-            </div>
-          {% endif %}
-          
-          <div class="post-content">
-            <div class="post-meta">
-              <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
-                <i class="far fa-calendar" aria-hidden="true"></i>
-                {{ post.date | date: "%b %d, %Y" }}
-              </time>
-              <span class="read-time">
-                <i class="far fa-clock" aria-hidden="true"></i>
-                {% include read-time.html %}
-              </span>
-            </div>
-            
-            <h2 class="post-title" itemprop="headline">
-              <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
-            </h2>
-            
-            <div class="post-excerpt" itemprop="description">
-              {{ post.content | strip_html | truncate: 120 }}
-            </div>
-            
-            {% if post.categories.size > 0 %}
-              <div class="post-categories">
-                {% for category in post.categories %}
-                  <a href="{{ '/category/' | append: category | slugify | relative_url }}" class="category-tag">
-                    {{ category }}
-                  </a>
-                {% endfor %}
-              </div>
-            {% endif %}
-            
-            <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full post: {{ post.title }}">
-              Read More <i class="fas fa-arrow-right" aria-hidden="true"></i>
-            </a>
+<!-- Original Posts Content -->
+<div id="posts-wrapper">
+  {% for post in paginator.posts %}
+    <div class="posts-container">
+      <div class="compact-card">
+        {% if post.image %}
+          <div class="thumbnail-container">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
           </div>
-        </article>
-      {% endfor %}
+        {% endif %}
+        <div class="post-content">
+          <h3 class="post-title">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+          </h3>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+          </div>
+          <div class="post-excerpt">
+            {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  {% endfor %}
+</div>
 
-  <!-- Pagination -->
-  {% if paginator.total_pages > 1 %}
-    <nav class="pagination" aria-label="Posts pagination">
-      {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn pagination-prev">
-          <i class="fas fa-chevron-left" aria-hidden="true"></i>
-          {{ site.data.settings.pagination.next_page }}
-        </a>
-      {% endif %}
-      
-      <span class="pagination-info">
-        Page {{ paginator.page }} of {{ paginator.total_pages }}
-      </span>
-      
-      {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn pagination-next">
-          {{ site.data.settings.pagination.previous_page }}
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-      {% endif %}
-    </nav>
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a class="pagination-button pagination-active" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">{{ site.data.settings.pagination.next_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.next_page }}</span>
+  {% endif %}
+    <span class="pagination-button">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="pagination-button pagination-active next" href="{{ site.github.url }}{{ paginator.next_page_path }}">{{ site.data.settings.pagination.previous_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.previous_page }}</span>
   {% endif %}
 </div>
 
-<!-- Search functionality -->
+<!-- Search JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   let postsData = [];
+  
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('results-container');
   const postsWrapper = document.getElementById('posts-wrapper');
   const clearButton = document.getElementById('search-clear');
   
+  // Hide clear button initially
   clearButton.style.display = 'none';
   
-  // Load posts data
+  // Load posts data from external JSON file
   async function loadPostsData() {
     try {
-      const response = await fetch('{{ "/articles.json" | relative_url }}');
-      if (!response.ok) throw new Error('Failed to load articles data');
+      const response = await fetch('{{ site.github.url }}/articles.json');
+      if (!response.ok) {
+        throw new Error('Failed to load articles data');
+      }
       postsData = await response.json();
-      searchInput.placeholder = `Search among ${postsData.length} posts...`;
+      
+      // Update placeholder with post count
+      const postCount = postsData.length;
+      searchInput.placeholder = `Search among ${postCount} posts...`;
+      
+      // Enable search input
       searchInput.disabled = false;
     } catch (error) {
       console.error('Error loading posts data:', error);
@@ -126,41 +89,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Initialize data loading
   searchInput.disabled = true;
   searchInput.placeholder = 'Loading...';
   loadPostsData();
   
+  // Function to create post HTML
   function createPostHTML(post) {
     const imageHTML = post.image ? 
-      `<div class="post-image">
-         <a href="${post.url}">
-           <img src="${post.image}" alt="${post.title}" loading="lazy">
+      `<div class="thumbnail-container">
+         <a href="${post.url}" aria-label="Continue reading ${post.title}">
+           <img src="${post.image}" alt="${post.title}">
          </a>
        </div>` : '';
     
     return `
-      <article class="post-card">
-        ${imageHTML}
-        <div class="post-content">
-          <div class="post-meta">
-            <time><i class="far fa-calendar"></i> ${post.date}</time>
+      <div class="posts-container">
+        <div class="compact-card">
+          ${imageHTML}
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="${post.url}" aria-label="${post.title}">${post.title}</a>
+            </h3>
+            <div class="post-meta">
+              <i class="fa fa-calendar" aria-hidden="true"></i> ${post.date} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
+            </div>
+            <div class="post-excerpt">
+              ${post.excerpt} <a href="${post.url}" aria-label="Continue reading ${post.title}" class="read-more">Continue reading</a>
+            </div>
           </div>
-          <h2 class="post-title">
-            <a href="${post.url}">${post.title}</a>
-          </h2>
-          <div class="post-excerpt">${post.excerpt}</div>
-          <a href="${post.url}" class="read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
         </div>
-      </article>
+      </div>
     `;
   }
   
+  // Search function
   function performSearch() {
     const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    // Show/hide clear button based on search term
     clearButton.style.display = searchTerm ? 'block' : 'none';
     
+    // If search term is empty, show original posts and hide results
     if (!searchTerm) {
       postsWrapper.style.display = 'block';
       resultsContainer.style.display = 'none';
@@ -168,24 +138,28 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
+    // Hide original posts, show results container
     postsWrapper.style.display = 'none';
     resultsContainer.style.display = 'block';
     resultsContainer.innerHTML = '';
     
+    // Filter posts based on search term
     const filteredPosts = postsData.filter(post => 
       post.title.toLowerCase().includes(searchTerm) || 
       post.excerpt.toLowerCase().includes(searchTerm)
     );
     
+    // Display results
     if (filteredPosts.length > 0) {
-      resultsContainer.innerHTML = '<div class="posts-grid">' + 
-        filteredPosts.map(post => createPostHTML(post)).join('') + 
-        '</div>';
+      filteredPosts.forEach(post => {
+        resultsContainer.innerHTML += createPostHTML(post);
+      });
     } else {
       resultsContainer.innerHTML = '<div class="no-results">No posts found matching your search.</div>';
     }
   }
   
+  // Clear search function
   function clearSearch() {
     searchInput.value = '';
     clearButton.style.display = 'none';
@@ -194,7 +168,71 @@ document.addEventListener('DOMContentLoaded', function() {
     resultsContainer.innerHTML = '';
   }
   
+  // Event listeners
   searchInput.addEventListener('input', performSearch);
   clearButton.addEventListener('click', clearSearch);
 });
 </script>
+
+<!-- Add CSS for search styling -->
+<style>
+  .search-container {
+    position: relative;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .search-inner-container {
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  #search-input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+  }
+  
+  #search-input:focus {
+    outline: none;
+    border-color: #555;
+  }
+  
+  #search-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  #search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 5px;
+  }
+  
+  #search-clear:hover {
+    color: #333;
+  }
+  
+  #results-container {
+    display: none;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+  }
+</style>
