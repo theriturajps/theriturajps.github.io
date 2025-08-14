@@ -2,7 +2,7 @@
 
 url: "https://www.letnote.in"
 
-paginate:            10
+paginate:            12
 
 # Build settings
 markdown:            kramdown
@@ -11,7 +11,7 @@ permalink:           /blog/:title
 plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
 
 title:               'LetNote'
-tagline:             'Master Backend Development & Stay Informed'
+tagline:             'Where Ideas Take Shape'
 description:         'LetNote provides comprehensive tutorials on Node.js, JWT, Authentication, APIs and backend technologies along with updates on Indian government schemes and education news. Learn to build secure, scalable applications while staying informed about important initiatives.'
 author:              'Ritu Raj Pratap Singh'
 
