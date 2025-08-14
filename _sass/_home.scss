@@ -85,7 +85,7 @@
 }
 
 .thumbnail-container img:hover {
-  transform: scale(1.01);
+  transform: scale(1.02);
 }
 
 /*
@@ -105,11 +105,11 @@
 .pagination-button {
   color: $light-gray-color;
   border: 1px solid $pagination-button-color;
-  padding: 5px 15px;
+  padding: 0px 12px;
   display: inline-block;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: bold;
-  border-radius: 0.6rem;
+  border-radius: 0.4rem;
 }
 
 .pagination-active {
