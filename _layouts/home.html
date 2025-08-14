@@ -21,7 +21,7 @@ layout: default
       <div class="compact-card">
         {% if post.image %}
           <div class="thumbnail-container">
-            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Read more {{ post.title }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}"></a>
           </div>
         {% endif %}
         <div class="post-content">
@@ -32,7 +32,7 @@ layout: default
             <i class="fa fa-calendar" aria-hidden="true"></i> {{ post.date | date_to_string }} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
           </div>
           <div class="post-excerpt">
-            {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Continue reading {{ post.title }}" class="read-more">Continue reading</a>
+            {{ post.content | strip_html | truncate: 125 }} <a href="{{ site.github.url }}{{ post.url }}" aria-label="Read more {{ post.title }}" class="read-more">Read more</a>
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function createPostHTML(post) {
     const imageHTML = post.image ? 
       `<div class="thumbnail-container">
-         <a href="${post.url}" aria-label="Continue reading ${post.title}">
+         <a href="${post.url}" aria-label="Read more ${post.title}">
            <img src="${post.image}" alt="${post.title}">
          </a>
        </div>` : '';
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <i class="fa fa-calendar" aria-hidden="true"></i> ${post.date} - <i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}
             </div>
             <div class="post-excerpt">
-              ${post.excerpt} <a href="${post.url}" aria-label="Continue reading ${post.title}" class="read-more">Continue reading</a>
+              ${post.excerpt} <a href="${post.url}" aria-label="Read more ${post.title}" class="read-more">Read more</a>
             </div>
           </div>
         </div>
