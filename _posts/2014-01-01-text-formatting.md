@@ -81,9 +81,7 @@ Another option is to embed your code through [Gist](https://en.support.wordpress
 
 ## Images
 
-To add an image, use `![alt text](<Image url> "Image meta title")`:
-
-![alt text](http://noirve.com/wp-content/uploads/2013/10/DTTSP_Coffee.jpg "Example")
+To add an image, use `![alt text](<Image url> "Image meta title")`
 
 ## Unordered and Numbered Lists
 
@@ -153,7 +151,10 @@ Plenty of social media sites offer the option of embedding certain parts of thei
 </div>
 
 
-<a class="twitter-grid" data-partner="tweetdeck" href="https://twitter.com/paululele/timelines/755079130027352064">New Collection</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet">
+  <a href="https://twitter.com/paululele/status/755079130027352064"></a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Inline HTML elements
 
