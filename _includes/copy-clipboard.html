@@ -1,0 +1,87 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all code blocks with the Jekyll syntax highlighter structure
+  const codeBlocks = document.querySelectorAll('.language-javascript .highlight pre, .language-js .highlight pre, .language-go .highlight pre, .language-python .highlight pre, .language-java .highlight pre, .language-css .highlight pre, .language-html .highlight pre, .language-bash .highlight pre, .language-shell .highlight pre, .language-json .highlight pre, .language-xml .highlight pre, .language-yaml .highlight pre, .language-yml .highlight pre, .language-sql .highlight pre, .language-php .highlight pre, .language-ruby .highlight pre, .language-c .highlight pre, .language-cpp .highlight pre, .language-csharp .highlight pre, .language-swift .highlight pre, .language-kotlin .highlight pre, .language-typescript .highlight pre, .language-ts .highlight pre, div[class*="language-"] .highlight pre');
+  
+  codeBlocks.forEach(function(codeBlock, index) {
+    // Create wrapper div if it doesn't exist
+    const parentDiv = codeBlock.closest('div[class*="language-"]');
+    if (!parentDiv) return;
+    
+    // Check if copy button already exists
+    if (parentDiv.querySelector('.copy-btn-wrapper')) return;
+    
+    // Create copy button wrapper
+    const copyWrapper = document.createElement('div');
+    copyWrapper.className = 'copy-btn-wrapper';
+    
+    // Create copy button
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+    copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+    copyBtn.setAttribute('title', 'Copy code');
+    
+    // Add click event
+    copyBtn.addEventListener('click', function() {
+      // Get the code text - remove HTML tags and get plain text
+      const codeElement = codeBlock.querySelector('code') || codeBlock;
+      const codeText = codeElement.innerText || codeElement.textContent;
+      
+      // Copy to clipboard
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(codeText).then(function() {
+          showCopyFeedback(copyBtn);
+        }).catch(function(err) {
+          console.error('Failed to copy: ', err);
+          fallbackCopyTextToClipboard(codeText, copyBtn);
+        });
+      } else {
+        fallbackCopyTextToClipboard(codeText, copyBtn);
+      }
+    });
+    
+    copyWrapper.appendChild(copyBtn);
+    
+    // Position the button
+    parentDiv.style.position = 'relative';
+    parentDiv.appendChild(copyWrapper);
+  });
+  
+  // Fallback copy function for older browsers
+  function fallbackCopyTextToClipboard(text, button) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        showCopyFeedback(button);
+      }
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+    
+    document.body.removeChild(textArea);
+  }
+  
+  // Show copy feedback
+  function showCopyFeedback(button) {
+    const originalHTML = button.innerHTML;
+    button.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"></polyline></svg>';
+    button.classList.add('copied');
+    
+    setTimeout(function() {
+      button.innerHTML = originalHTML;
+      button.classList.remove('copied');
+    }, 2000);
+  }
+});
+</script>
+<link rel="stylesheet" href="{{ site.github.url }}/assets/css/copy-clipboard.css">

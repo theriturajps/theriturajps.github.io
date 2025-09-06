@@ -1,0 +1,14 @@
+---
+layout: null
+---
+[
+  {% for post in site.posts %}
+    {
+      "title": {{ post.title | jsonify }},
+      "excerpt": {{ post.content | strip_html | truncate: 125 | jsonify }},
+      "url": "{{ site.github.url }}{{ post.url }}",
+      "date": "{{ post.date | date_to_string }}",
+      "image": {% if post.image %}"{{ site.github.url }}/assets/img/{{ post.image }}"{% else %}null{% endif %}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

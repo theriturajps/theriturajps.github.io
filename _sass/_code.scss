@@ -1,0 +1,114 @@
+/*
+  Code
+*/
+
+code,
+pre {
+  font-family: $code-font-family;
+}
+
+code {
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  background-color: $code-background-color;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  color: #e4e4e7;
+}
+
+pre {
+  display: block;
+  margin: 1rem 0;
+  padding: 12px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: $code-background-color;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+pre code {
+  padding: 0;
+  font-size: 100%;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+/* Horizontal code overflow fix */
+pre.highlight {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Pygments via Jekyll */
+.highlight {
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background-color: $code-background-color;
+}
+
+.highlight pre {
+  margin-bottom: 0;
+  background-color: transparent;
+}
+
+/* Gist via GitHub Pages */
+.gist .gist-file {
+  font-family: $code-font-family !important;
+}
+
+.gist .markdown-body {
+  padding: 12px;
+}
+
+.gist pre {
+  padding: 0;
+  background-color: transparent;
+}
+
+.gist .gist-file .gist-data {
+  font-size: 0.75rem !important;
+  line-height: 1.4;
+}
+
+.gist code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Language label for code blocks */
+div[class*="language-"] {
+  position: relative;
+}
+
+div[class*="language-"]::before {
+  content: attr(class);
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  font-size: 0.65rem;
+  color: $light-gray-color;
+  text-transform: uppercase;
+  font-family: $sans-serif-font-family;
+  font-weight: 600;
+  z-index: 1;
+}
+
+div[class*="language-javascript"]::before { content: "JS"; }
+div[class*="language-js"]::before { content: "JS"; }
+div[class*="language-python"]::before { content: "Python"; }
+div[class*="language-css"]::before { content: "CSS"; }
+div[class*="language-html"]::before { content: "HTML"; }
+div[class*="language-bash"]::before { content: "Bash"; }
+div[class*="language-shell"]::before { content: "Shell"; }
+div[class*="language-json"]::before { content: "JSON"; }
+div[class*="language-yaml"]::before { content: "YAML"; }
+div[class*="language-sql"]::before { content: "SQL"; }

@@ -1,0 +1,125 @@
+/*
+  Site container
+*/
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 615px;
+}
+
+.content-container {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: $container-responsive-width) {
+  .container {
+    width: 90vw;
+  }
+}
+
+/*
+  Header
+*/
+
+.header {
+  padding-bottom: 0.5rem;
+  font-family: $sans-serif-font-family;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 1.5rem;
+}
+
+.header a:hover {
+  color: $link-hover-color;
+}
+
+.header-title a {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: $dark-gray-color;
+  font-weight: 600;
+}
+
+.header-subtitle {
+  color: $light-gray-color;
+  margin-left: 0.8rem;
+  font-size: 0.9rem;
+}
+
+/*
+  Menu
+*/
+
+.menu {
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-content {
+  float: left;
+}
+
+.menu-content a {
+  color: $light-gray-color;
+  font-size: 0.9rem;
+  padding-right: 15px;
+  transition: color 0.2s ease;
+}
+
+.menu-content a:hover {
+  color: $link-color;
+}
+
+.social-icons {
+  float: right;
+}
+
+.social-icons a {
+  color: $light-gray-color;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+@media (max-width: $elements-responsive-width) {
+  .social-icons {
+    float: left;
+    padding-top: 0px;
+  }
+  .menu-content {
+    margin-bottom: 5px;
+  }
+}
+
+/*
+  Footer
+*/
+
+.footer {
+  color: $light-gray-color;
+  text-align: center;
+  margin: 1rem;
+  border-top: 1px solid $border-color;
+  padding-top: 1.5rem;
+}
+
+.footer a {
+  color: $light-gray-color;
+  padding: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: $link-color;
+}
+
+.footer-description {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 1rem;
+  color: $light-gray-color;
+  font-family: $sans-serif-font-family;
+  font-size: 0.75rem;
+}

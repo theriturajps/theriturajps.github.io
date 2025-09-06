@@ -1,0 +1,167 @@
+---
+layout: default
+---
+
+<!-- Search Bar -->
+<div class="search-container">
+  <div class="search-inner-container">
+    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+    <button id="search-clear" aria-label="Clear search">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<div id="results-container"></div>
+
+<!-- Posts Grid -->
+<div id="posts-wrapper">
+  <div class="posts-grid">
+    {% for post in paginator.posts %}
+      <div class="compact-card">
+        {% if post.image %}
+          <div class="thumbnail-container">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Read {{ post.title }}">
+              <img src="{{ site.github.url }}/assets/img/{{ post.image }}" alt="{{ post.title }}">
+            </a>
+          </div>
+        {% endif %}
+        <div class="post-content">
+          <h3 class="post-title">
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+          </h3>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <span>{% include read-time.html %}</span>
+          </div>
+          <div class="post-excerpt">
+            {{ post.content | strip_html | truncate: 100 }}
+            <a href="{{ site.github.url }}{{ post.url }}" aria-label="Read {{ post.title }}" class="read-more">Read more</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a class="pagination-button pagination-active" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">{{ site.data.settings.pagination.next_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.next_page }}</span>
+  {% endif %}
+  <span class="pagination-button">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="pagination-button pagination-active next" href="{{ site.github.url }}{{ paginator.next_page_path }}">{{ site.data.settings.pagination.previous_page }}</a>
+  {% else %}
+    <span class="pagination-button">{{ site.data.settings.pagination.previous_page }}</span>
+  {% endif %}
+</div>
+
+<!-- Search JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let postsData = [];
+  
+  const searchInput = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('results-container');
+  const postsWrapper = document.getElementById('posts-wrapper');
+  const clearButton = document.getElementById('search-clear');
+  
+  clearButton.style.display = 'none';
+  
+  async function loadPostsData() {
+    try {
+      const response = await fetch('{{ site.github.url }}/articles.json');
+      if (!response.ok) throw new Error('Failed to load articles data');
+      postsData = await response.json();
+      
+      const postCount = postsData.length;
+      searchInput.placeholder = `Search among ${postCount} posts...`;
+      searchInput.disabled = false;
+    } catch (error) {
+      console.error('Error loading posts data:', error);
+      searchInput.placeholder = 'Search unavailable';
+    }
+  }
+  
+  searchInput.disabled = true;
+  searchInput.placeholder = 'Loading...';
+  loadPostsData();
+  
+  function createPostHTML(post) {
+    const imageHTML = post.image ? 
+      `<div class="thumbnail-container">
+         <a href="${post.url}" aria-label="Read ${post.title}">
+           <img src="${post.image}" alt="${post.title}">
+         </a>
+       </div>` : '';
+    
+    return `
+      <div class="compact-card">
+        ${imageHTML}
+        <div class="post-content">
+          <h3 class="post-title">
+            <a href="${post.url}" aria-label="${post.title}">${post.title}</a>
+          </h3>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>${post.date}</span>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <span>{% include read-time.html %}</span>
+          </div>
+          <div class="post-excerpt">
+            ${post.excerpt}
+            <a href="${post.url}" aria-label="Read ${post.title}" class="read-more">Read more</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    clearButton.style.display = searchTerm ? 'block' : 'none';
+    
+    if (!searchTerm) {
+      postsWrapper.style.display = 'block';
+      resultsContainer.style.display = 'none';
+      resultsContainer.innerHTML = '';
+      return;
+    }
+    
+    postsWrapper.style.display = 'none';
+    resultsContainer.style.display = 'block';
+    resultsContainer.innerHTML = '';
+    
+    const filteredPosts = postsData.filter(post => 
+      post.title.toLowerCase().includes(searchTerm) || 
+      post.excerpt.toLowerCase().includes(searchTerm)
+    );
+    
+    if (filteredPosts.length > 0) {
+      const gridHTML = '<div class="posts-grid">' + 
+        filteredPosts.map(post => createPostHTML(post)).join('') + 
+        '</div>';
+      resultsContainer.innerHTML = gridHTML;
+    } else {
+      resultsContainer.innerHTML = '<div class="no-results">No posts found matching your search.</div>';
+    }
+  }
+  
+  function clearSearch() {
+    searchInput.value = '';
+    clearButton.style.display = 'none';
+    postsWrapper.style.display = 'block';
+    resultsContainer.style.display = 'none';
+    resultsContainer.innerHTML = '';
+  }
+  
+  searchInput.addEventListener('input', performSearch);
+  clearButton.addEventListener('click', clearSearch);
+});
+</script>

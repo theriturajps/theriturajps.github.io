@@ -1,0 +1,26 @@
+# Site Build Settings
+
+url: "https://www.letnote.in"
+
+paginate:            12
+
+# Build settings
+markdown:            kramdown
+highlighter:         rouge
+permalink:           /blog/:title
+plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
+
+title:               'LetNote'
+tagline:             'Where Ideas Take Shape'
+description:         'LetNote provides comprehensive tutorials on Node.js, JWT, Authentication, APIs and backend technologies along with updates on Indian government schemes and education news. Learn to build secure, scalable applications while staying informed about important initiatives.'
+author:              'Ritu Raj Pratap Singh'
+
+twitter:
+  username: riturajps
+  card:     summary_large_image
+
+# RSS 2.0 can be used instead of Atom by uncommenting following two lines
+feed:
+ path: rss-feed.xml
+
+timezone: Asia/Kolkata

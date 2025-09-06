@@ -1,0 +1,7 @@
+User-agent: *
+
+Allow: /
+Allow: /blog/
+Allow: /page/
+
+Sitemap: https://www.letnote.in/sitemap.xml
