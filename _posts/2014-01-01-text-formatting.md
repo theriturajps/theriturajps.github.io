@@ -151,10 +151,7 @@ Plenty of social media sites offer the option of embedding certain parts of thei
 </div>
 
 
-<blockquote class="twitter-tweet">
-  <a href="https://twitter.com/paululele/status/755079130027352064"></a>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a class="twitter-tweet" data-partner="tweetdeck" href="https://twitter.com/paululele/status/755079130027352064">New Collection</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 ## Inline HTML elements
 
